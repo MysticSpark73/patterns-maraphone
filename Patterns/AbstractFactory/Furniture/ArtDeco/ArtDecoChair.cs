@@ -1,4 +1,6 @@
-﻿namespace Patterns.AbstractFactory.Furniture.ArtDeco;
+﻿using System;
+
+namespace Patterns.AbstractFactory.Furniture.ArtDeco;
 
 public class ArtDecoChair : IChair
 {

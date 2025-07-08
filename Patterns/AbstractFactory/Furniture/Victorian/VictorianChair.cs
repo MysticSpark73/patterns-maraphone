@@ -1,4 +1,6 @@
-﻿namespace Patterns.AbstractFactory.Furniture.Victorian;
+﻿using System;
+
+namespace Patterns.AbstractFactory.Furniture.Victorian;
 
 public class VictorianChair : IChair
 {

@@ -8,8 +8,6 @@ public struct WeaponStats
     public WieldType WieldType;
     public WeaponType WeaponType;
 
-    public WeaponStats() { }
-
     public override string ToString()
     {
         string res = "";

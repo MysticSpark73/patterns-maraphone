@@ -1,4 +1,5 @@
-﻿using Patterns.AbstractFactory.Factories;
+﻿using System;
+using Patterns.AbstractFactory.Factories;
 using Patterns.AbstractFactory.Furniture;
 using Patterns.Common;
 

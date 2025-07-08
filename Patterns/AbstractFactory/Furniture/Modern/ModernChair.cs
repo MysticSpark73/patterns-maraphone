@@ -1,4 +1,6 @@
-﻿namespace Patterns.AbstractFactory.Furniture.Modern;
+﻿using System;
+
+namespace Patterns.AbstractFactory.Furniture.Modern;
 
 public class ModernChair : IChair
 {

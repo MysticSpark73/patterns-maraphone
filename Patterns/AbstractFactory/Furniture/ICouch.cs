@@ -1,4 +1,6 @@
-﻿namespace Patterns.AbstractFactory.Furniture;
+﻿using System;
+
+namespace Patterns.AbstractFactory.Furniture;
 
 public interface ICouch
 {
