@@ -9,7 +9,7 @@ internal abstract class Program
     static void Main(string[] args)
     {
         // RunAbstractFactory(new object[] { AbstractFactoryMain.FurnitureType.Modern });
-        RunBuilder();
+        // RunBuilder();
     }
 
     private static void RunFactory()
