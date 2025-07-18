@@ -8,4 +8,9 @@ public class PrototypeMain : IProgram
     {
         
     }
+
+    private void GenerateCells()
+    {
+        
+    }
 }
