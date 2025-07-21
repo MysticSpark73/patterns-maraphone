@@ -1,11 +1,12 @@
 ﻿using System;
 
-namespace Patterns.AbstractFactory.Furniture.Modern;
-
-public class ModernChair : IChair
+namespace Patterns.AbstractFactory.Furniture.Modern
 {
-    public void SitOn()
+    public class ModernChair : IChair
     {
-        Console.WriteLine("You are sitting on a Modern Chair");
+        public void SitOn()
+        {
+            Console.WriteLine("You are sitting on a Modern Chair");
+        }
     }
 }

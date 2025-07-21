@@ -1,11 +1,12 @@
 ﻿using System;
 
-namespace Patterns.AbstractFactory.Furniture;
-
-public interface IChair
+namespace Patterns.AbstractFactory.Furniture
 {
-    void SitOn()
+    public interface IChair
     {
-        Console.WriteLine("You are sitting on an unremarkable chair");
+        void SitOn()
+        {
+            Console.WriteLine("You are sitting on an unremarkable chair");
+        }
     }
 }

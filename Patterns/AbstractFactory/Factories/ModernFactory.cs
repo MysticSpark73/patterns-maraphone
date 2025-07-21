@@ -1,22 +1,23 @@
 ﻿using Patterns.AbstractFactory.Furniture;
 using Patterns.AbstractFactory.Furniture.Modern;
 
-namespace Patterns.AbstractFactory.Factories;
-
-public class ModernFactory : IAbstractFurnitureFactory
+namespace Patterns.AbstractFactory.Factories
 {
-    public IChair CreateChair()
+    public class ModernFactory : IAbstractFurnitureFactory
     {
-        return new ModernChair();
-    }
+        public IChair CreateChair()
+        {
+            return new ModernChair();
+        }
 
-    public ICouch CreateCouch()
-    {
-        return new ModernCouch();
-    }
+        public ICouch CreateCouch()
+        {
+            return new ModernCouch();
+        }
 
-    public ITable CreateTable()
-    {
-        return new ModernTable();
+        public ITable CreateTable()
+        {
+            return new ModernTable();
+        }
     }
 }

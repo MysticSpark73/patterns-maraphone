@@ -1,6 +1,7 @@
-﻿namespace Patterns.Common;
-
-public interface IProgram
+﻿namespace Patterns.Common
 {
-    void Run(object[]? args = null){}
+    public interface IProgram
+    {
+        void Run(object[]? args = null){}
+    }
 }

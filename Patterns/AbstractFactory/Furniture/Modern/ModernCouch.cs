@@ -1,16 +1,17 @@
 ﻿using System;
 
-namespace Patterns.AbstractFactory.Furniture.Modern;
-
-public class ModernCouch : ICouch
+namespace Patterns.AbstractFactory.Furniture.Modern
 {
-    public void SitOn()
+    public class ModernCouch : ICouch
     {
-        Console.WriteLine("You are sitting on a Modern Couch");
-    }
+        public void SitOn()
+        {
+            Console.WriteLine("You are sitting on a Modern Couch");
+        }
 
-    public void LayOn()
-    {
-        Console.WriteLine("You are laying on a Modern Couch");
+        public void LayOn()
+        {
+            Console.WriteLine("You are laying on a Modern Couch");
+        }
     }
 }

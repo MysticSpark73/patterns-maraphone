@@ -1,12 +1,13 @@
 ﻿using Patterns.AbstractFactory.Furniture;
 
-namespace Patterns.AbstractFactory.Factories;
-
-public interface IAbstractFurnitureFactory
+namespace Patterns.AbstractFactory.Factories
 {
-    public IChair CreateChair();
+    public interface IAbstractFurnitureFactory
+    {
+        public IChair CreateChair();
 
-    public ICouch CreateCouch();
+        public ICouch CreateCouch();
 
-    public ITable CreateTable();
+        public ITable CreateTable();
+    }
 }

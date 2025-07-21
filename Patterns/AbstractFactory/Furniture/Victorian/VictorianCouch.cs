@@ -1,16 +1,17 @@
 ﻿using System;
 
-namespace Patterns.AbstractFactory.Furniture.Victorian;
-
-public class VictorianCouch : ICouch
+namespace Patterns.AbstractFactory.Furniture.Victorian
 {
-    public void SitOn()
+    public class VictorianCouch : ICouch
     {
-        Console.WriteLine("You are sitting on a Victorian couch");
-    }
+        public void SitOn()
+        {
+            Console.WriteLine("You are sitting on a Victorian couch");
+        }
 
-    public void LayOn()
-    {
-        Console.WriteLine("You are lying on a Victorian couch");
+        public void LayOn()
+        {
+            Console.WriteLine("You are lying on a Victorian couch");
+        }
     }
 }

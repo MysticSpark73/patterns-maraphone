@@ -1,8 +1,9 @@
-﻿namespace Patterns.Builder.Builders;
-
-public interface IBuilder<T>
+﻿namespace Patterns.Builder.Builders
 {
-    public T Build();
+    public interface IBuilder<T>
+    {
+        public T Build();
 
-    public IBuilder<T> Reset();
+        public IBuilder<T> Reset();
+    }
 }

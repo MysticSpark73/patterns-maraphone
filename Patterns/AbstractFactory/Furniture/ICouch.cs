@@ -1,16 +1,17 @@
 ﻿using System;
 
-namespace Patterns.AbstractFactory.Furniture;
-
-public interface ICouch
+namespace Patterns.AbstractFactory.Furniture
 {
-    void SitOn()
+    public interface ICouch
     {
-        Console.WriteLine("You are sitting on an unremarkable couch");
-    }
+        void SitOn()
+        {
+            Console.WriteLine("You are sitting on an unremarkable couch");
+        }
 
-    void LayOn()
-    {
-        Console.WriteLine("You are lying on an unremarkable couch");
+        void LayOn()
+        {
+            Console.WriteLine("You are lying on an unremarkable couch");
+        }
     }
 }

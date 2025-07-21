@@ -1,6 +1,7 @@
-namespace Patterns.Prototype.Interfaces;
-
-public interface ICloneable<T>
+namespace Patterns.Prototype.Interfaces
 {
-    T Clone();
+    public interface ICloneable<T>
+    {
+        T Clone();
+    }
 }

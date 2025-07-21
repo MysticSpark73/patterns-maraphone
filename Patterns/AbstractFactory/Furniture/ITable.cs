@@ -1,14 +1,15 @@
 ﻿using System;
 
-namespace Patterns.AbstractFactory.Furniture;
-
-public interface ITable
+namespace Patterns.AbstractFactory.Furniture
 {
-    void PutOn(string[] objects)
+    public interface ITable
     {
-        for (int i = 0; i < objects.Length; i++)
+        void PutOn(string[] objects)
         {
-            Console.WriteLine($"You put a {objects[i]} onto an unremarkable table");
+            for (int i = 0; i < objects.Length; i++)
+            {
+                Console.WriteLine($"You put a {objects[i]} onto an unremarkable table");
+            }
         }
     }
 }

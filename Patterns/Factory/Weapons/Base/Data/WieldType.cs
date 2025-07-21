@@ -1,7 +1,8 @@
-﻿namespace Patterns.Factory.Weapons.Base.Data;
-
-public enum WieldType : byte
+﻿namespace Patterns.Factory.Weapons.Base.Data
 {
-    MainHand = 0,
-    OffHand = 1
+    public enum WieldType : byte
+    {
+        MainHand = 0,
+        OffHand = 1
+    }
 }

@@ -2,73 +2,74 @@
 using Patterns.Builder.Cars;
 using Patterns.Builder.Cars.CarParts;
 
-namespace Patterns.Builder.Builders;
-
-public class CarBuilder : ICarBuilder
+namespace Patterns.Builder.Builders
 {
-    protected CarBlueprint _carBlueprint;
-
-    public CarBuilder()
+    public class CarBuilder : ICarBuilder
     {
-        Reset();
-    }
+        protected CarBlueprint _carBlueprint;
 
-    public Car Build()
-    {
-        return new Car(_carBlueprint);
-    }
+        public CarBuilder()
+        {
+            Reset();
+        }
 
-    public IBuilder<Car> Reset()
-    {
-        _carBlueprint = new CarBlueprint();
-        return this;
-    }
+        public Car Build()
+        {
+            return new Car(_carBlueprint);
+        }
 
-    public ICarBuilder AddEngine(CarEngineBase engine)
-    {
-        _carBlueprint.Engine = engine;
-        return this;
-    }
+        public IBuilder<Car> Reset()
+        {
+            _carBlueprint = new CarBlueprint();
+            return this;
+        }
 
-    public ICarBuilder SetColor(Color color)
-    {
-        _carBlueprint.Color = color;
-        return this;
-    }
+        public ICarBuilder AddEngine(CarEngineBase engine)
+        {
+            _carBlueprint.Engine = engine;
+            return this;
+        }
 
-    public ICarBuilder SetTransmissionType(TransmissionType transmissionType)
-    {
-        _carBlueprint.TransmissionType = transmissionType;
-        return this;
-    }
+        public ICarBuilder SetColor(Color color)
+        {
+            _carBlueprint.Color = color;
+            return this;
+        }
 
-    public ICarBuilder SetSeatsNumber(int seatsNumber)
-    {
-        _carBlueprint.SeatsNumber = seatsNumber;
-        return this;
-    }
+        public ICarBuilder SetTransmissionType(TransmissionType transmissionType)
+        {
+            _carBlueprint.TransmissionType = transmissionType;
+            return this;
+        }
 
-    public ICarBuilder SetTripComputer(bool tripComputer)
-    {
-        _carBlueprint.TripComputer = tripComputer;
-        return this;
-    }
+        public ICarBuilder SetSeatsNumber(int seatsNumber)
+        {
+            _carBlueprint.SeatsNumber = seatsNumber;
+            return this;
+        }
 
-    public ICarBuilder SetTrunk(bool hasTrunk)
-    {
-        _carBlueprint.HasTrunk = hasTrunk;
-        return this;
-    }
+        public ICarBuilder SetTripComputer(bool tripComputer)
+        {
+            _carBlueprint.TripComputer = tripComputer;
+            return this;
+        }
 
-    public ICarBuilder SetTurbo(bool hasTurbo)
-    {
-        _carBlueprint.Turbo = hasTurbo;
-        return this;
-    }
+        public ICarBuilder SetTrunk(bool hasTrunk)
+        {
+            _carBlueprint.HasTrunk = hasTrunk;
+            return this;
+        }
 
-    public ICarBuilder SetWinch(bool hasWinch)
-    {
-        _carBlueprint.Winch = hasWinch;
-        return this;
+        public ICarBuilder SetTurbo(bool hasTurbo)
+        {
+            _carBlueprint.Turbo = hasTurbo;
+            return this;
+        }
+
+        public ICarBuilder SetWinch(bool hasWinch)
+        {
+            _carBlueprint.Winch = hasWinch;
+            return this;
+        }
     }
 }

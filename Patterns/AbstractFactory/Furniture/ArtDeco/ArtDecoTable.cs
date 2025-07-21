@@ -1,16 +1,17 @@
 ﻿using System;
 
-namespace Patterns.AbstractFactory.Furniture.ArtDeco;
-
-public class ArtDecoTable : ITable
+namespace Patterns.AbstractFactory.Furniture.ArtDeco
 {
-    public void PutOn(string[] objects)
+    public class ArtDecoTable : ITable
     {
-        if (objects.Length == 0) return;
-        
-        for (int i = 0; i < objects.Length; i++)
+        public void PutOn(string[] objects)
         {
-            Console.WriteLine($"You put a {objects[i]} onto Art Deco Table");
+            if (objects.Length == 0) return;
+        
+            for (int i = 0; i < objects.Length; i++)
+            {
+                Console.WriteLine($"You put a {objects[i]} onto Art Deco Table");
+            }
         }
     }
 }

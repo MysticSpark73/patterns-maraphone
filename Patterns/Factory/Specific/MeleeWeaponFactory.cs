@@ -1,12 +1,13 @@
 ﻿using Patterns.Factory.Base;
 using Patterns.Factory.Weapons.Base;
 
-namespace Patterns.Factory.Specific;
-
-public class MeleeWeaponFactory : FactoryBase
+namespace Patterns.Factory.Specific
 {
-    public override IWeapon Create()
+    public class MeleeWeaponFactory : FactoryBase
     {
-        return new MeleeWeapon();
+        public override IWeapon Create()
+        {
+            return new MeleeWeapon();
+        }
     }
 }

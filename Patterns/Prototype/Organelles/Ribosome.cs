@@ -1,17 +1,18 @@
 using System;
 using Patterns.Prototype.Interfaces;
 
-namespace Patterns.Prototype.Organelles;
-
-public class Ribosome : Organelle, ICloneable<Ribosome>
+namespace Patterns.Prototype.Organelles
 {
-    public void SynthesizeProtein()
+    public class Ribosome : Organelle, ICloneable<Ribosome>
     {
-        Console.WriteLine("Ribosome produced protein");
-    }
+        public void SynthesizeProtein()
+        {
+            Console.WriteLine("Ribosome produced protein");
+        }
 
-    public Ribosome Clone()
-    {
-        return new Ribosome();
+        public Ribosome Clone()
+        {
+            return new Ribosome();
+        }
     }
 }

@@ -1,19 +1,20 @@
 using Patterns.Prototype.Interfaces;
 using Patterns.Prototype.NucleicAcids;
 
-namespace Patterns.Prototype.Organelles;
-
-public class Nucleus : Organelle, ICloneable<Nucleus>
+namespace Patterns.Prototype.Organelles
 {
-    private DNA _dna;
-
-    public Nucleus(DNA dna)
+    public class Nucleus : Organelle, ICloneable<Nucleus>
     {
-        _dna = dna;
-    }
+        private DNA _dna;
 
-    public override Nucleus Clone()
-    {
-        return new Nucleus(_dna.Clone());
+        public Nucleus(DNA dna)
+        {
+            _dna = dna;
+        }
+
+        public override Nucleus Clone()
+        {
+            return new Nucleus(_dna.Clone());
+        }
     }
 }

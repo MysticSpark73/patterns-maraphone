@@ -1,21 +1,22 @@
-﻿namespace Patterns.Builder.Cars.CarParts;
-
-public abstract class CarEngineBase
+﻿namespace Patterns.Builder.Cars.CarParts
 {
-    protected int _horsePowers;
-    protected FuelType _fuelType;
-
-    protected CarEngineBase(FuelType fuelType, int horsePowers)
+    public abstract class CarEngineBase
     {
-        _fuelType = fuelType;
-        _horsePowers = horsePowers;
-    }
+        protected int _horsePowers;
+        protected FuelType _fuelType;
 
-    public enum FuelType : byte
-    {
-        Petrol,
-        Diesel,
-        Gas,
-        Electricity
+        protected CarEngineBase(FuelType fuelType, int horsePowers)
+        {
+            _fuelType = fuelType;
+            _horsePowers = horsePowers;
+        }
+
+        public enum FuelType : byte
+        {
+            Petrol,
+            Diesel,
+            Gas,
+            Electricity
+        }
     }
 }

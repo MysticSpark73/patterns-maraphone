@@ -1,13 +1,14 @@
-﻿namespace Patterns.Builder.Cars.CarParts;
-
-public class ElectricCarEngine : CarEngineBase
+﻿namespace Patterns.Builder.Cars.CarParts
 {
-    private int _batteryCapacity;
-    private float _chargeConsumption;
-    
-    public ElectricCarEngine(int horsePowers, int batteryCapacity, float chargeConsumption, FuelType fuelType = FuelType.Electricity) : base(fuelType, horsePowers)
+    public class ElectricCarEngine : CarEngineBase
     {
-        _batteryCapacity = batteryCapacity;
-        _chargeConsumption = chargeConsumption;
+        private int _batteryCapacity;
+        private float _chargeConsumption;
+    
+        public ElectricCarEngine(int horsePowers, int batteryCapacity, float chargeConsumption, FuelType fuelType = FuelType.Electricity) : base(fuelType, horsePowers)
+        {
+            _batteryCapacity = batteryCapacity;
+            _chargeConsumption = chargeConsumption;
+        }
     }
 }

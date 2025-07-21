@@ -1,11 +1,12 @@
 ﻿using System;
 
-namespace Patterns.AbstractFactory.Furniture.ArtDeco;
-
-public class ArtDecoChair : IChair
+namespace Patterns.AbstractFactory.Furniture.ArtDeco
 {
-    public void SitOn()
+    public class ArtDecoChair : IChair
     {
-        Console.WriteLine("You are sitting on an Art Deco chair");
+        public void SitOn()
+        {
+            Console.WriteLine("You are sitting on an Art Deco chair");
+        }
     }
 }

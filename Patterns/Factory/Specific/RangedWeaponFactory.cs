@@ -1,12 +1,13 @@
 ﻿using Patterns.Factory.Base;
 using Patterns.Factory.Weapons.Base;
 
-namespace Patterns.Factory.Specific;
-
-public class RangedWeaponFactory : FactoryBase
+namespace Patterns.Factory.Specific
 {
-    public override IWeapon Create()
+    public class RangedWeaponFactory : FactoryBase
     {
-        return new RangedWeapon();
+        public override IWeapon Create()
+        {
+            return new RangedWeapon();
+        }
     }
 }

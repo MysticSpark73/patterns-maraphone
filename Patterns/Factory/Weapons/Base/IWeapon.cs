@@ -1,10 +1,11 @@
-﻿namespace Patterns.Factory.Weapons.Base;
-
-public interface IWeapon
+﻿namespace Patterns.Factory.Weapons.Base
 {
-    public virtual string GetStats()
+    public interface IWeapon
     {
-        return string.Empty;
-    }
+        public virtual string GetStats()
+        {
+            return string.Empty;
+        }
 
+    }
 }

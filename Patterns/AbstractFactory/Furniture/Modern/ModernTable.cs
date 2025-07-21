@@ -1,16 +1,17 @@
 ﻿using System;
 
-namespace Patterns.AbstractFactory.Furniture.Modern;
-
-public class ModernTable : ITable
+namespace Patterns.AbstractFactory.Furniture.Modern
 {
-    public void PutOn(string[] objects)
+    public class ModernTable : ITable
     {
-        if (objects.Length == 0) return;
-
-        for (int i = 0; i < objects.Length; i++)
+        public void PutOn(string[] objects)
         {
-            Console.WriteLine($"You put a {objects[i]} onto a Modern Table");
+            if (objects.Length == 0) return;
+
+            for (int i = 0; i < objects.Length; i++)
+            {
+                Console.WriteLine($"You put a {objects[i]} onto a Modern Table");
+            }
         }
     }
 }

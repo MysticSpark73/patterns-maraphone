@@ -1,6 +1,7 @@
-namespace Patterns.Prototype.Factory;
-
-public interface IFactory<T>
+namespace Patterns.Prototype.Factory
 {
-    public abstract T Create();
+    public interface IFactory<T>
+    {
+        public abstract T Create();
+    }
 }

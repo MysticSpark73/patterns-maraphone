@@ -1,8 +1,9 @@
 ﻿using Patterns.Builder.Builders;
 
-namespace Patterns.Builder.Directors;
-
-public interface IDirector<T>
+namespace Patterns.Builder.Directors
 {
-    public void SetBuilder(IBuilder<T> builder);
+    public interface IDirector<T>
+    {
+        public void SetBuilder(IBuilder<T> builder);
+    }
 }

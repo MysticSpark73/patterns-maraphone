@@ -1,19 +1,20 @@
 ﻿using Patterns.Factory.Weapons.Base.Data;
 
-namespace Patterns.Factory.Weapons.Base;
-
-public class RangedWeapon : IWeapon
+namespace Patterns.Factory.Weapons.Base
 {
-    protected WeaponStats WeaponStats;
-
-    public RangedWeapon()
+    public class RangedWeapon : IWeapon
     {
-        WeaponStats.DamageType = DamageType.Ranged;
-        WeaponStats.WeaponType = WeaponType.Ranged;
-    }
+        protected WeaponStats WeaponStats;
 
-    public string GetStats()
-    {
-        return WeaponStats.ToString();
+        public RangedWeapon()
+        {
+            WeaponStats.DamageType = DamageType.Ranged;
+            WeaponStats.WeaponType = WeaponType.Ranged;
+        }
+
+        public string GetStats()
+        {
+            return WeaponStats.ToString();
+        }
     }
 }

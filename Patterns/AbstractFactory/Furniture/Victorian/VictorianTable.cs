@@ -1,16 +1,17 @@
 ﻿using System;
 
-namespace Patterns.AbstractFactory.Furniture.Victorian;
-
-public class VictorianTable : ITable
+namespace Patterns.AbstractFactory.Furniture.Victorian
 {
-    public void PutOn(string[] objects)
+    public class VictorianTable : ITable
     {
-        if (objects.Length == 0) return;
-
-        for (int i = 0; i < objects.Length; i++)
+        public void PutOn(string[] objects)
         {
-            Console.WriteLine($"You put a {objects[i]} onto a Victorian table");
+            if (objects.Length == 0) return;
+
+            for (int i = 0; i < objects.Length; i++)
+            {
+                Console.WriteLine($"You put a {objects[i]} onto a Victorian table");
+            }
         }
     }
 }

@@ -1,7 +1,8 @@
-namespace Patterns.Prototype.Data;
-
-public enum CellDataType : byte
+namespace Patterns.Prototype.Data
 {
-    Prokaryotic = 0,
-    Eukaryotic = 1,
+    public enum CellDataType : byte
+    {
+        Prokaryotic = 0,
+        Eukaryotic = 1,
+    }
 }

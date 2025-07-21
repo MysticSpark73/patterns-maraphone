@@ -1,21 +1,22 @@
 using Patterns.Prototype.Interfaces;
 
-namespace Patterns.Prototype.Organelles;
-
-public class Organelle : ICloneable<Organelle>
+namespace Patterns.Prototype.Organelles
 {
-    public virtual Organelle Clone()
+    public class Organelle : ICloneable<Organelle>
     {
-        return new Organelle();
-    }
+        public virtual Organelle Clone()
+        {
+            return new Organelle();
+        }
 
-    public virtual void UpdateState()
-    {
+        public virtual void UpdateState()
+        {
         
-    }
+        }
 
-    public virtual int GetEnergyLevel()
-    {
-        return 0;
+        public virtual int GetEnergyLevel()
+        {
+            return 0;
+        }
     }
 }
