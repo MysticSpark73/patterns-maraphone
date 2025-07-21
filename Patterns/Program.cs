@@ -1,6 +1,7 @@
 ﻿using Patterns.AbstractFactory;
 using Patterns.Builder;
 using Patterns.Factory;
+using Patterns.Prototype;
 
 namespace Patterns;
 
@@ -28,5 +29,11 @@ internal abstract class Program
     {
         BuilderMain builder = new BuilderMain();
         builder.Run();
+    }
+
+    private static void RunPrototype()
+    {
+        PrototypeMain prototype = new PrototypeMain();
+        prototype.Run(new []{"Eukaryotic"});
     }
 }

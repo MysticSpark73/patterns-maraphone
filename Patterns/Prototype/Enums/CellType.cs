@@ -27,4 +27,7 @@ public enum CellType : byte
     // Bone & Connective
     Osteocyte = 10,
     Osteoclast = 11,
+    
+    Bacteria = 12
+    
 }

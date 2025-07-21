@@ -1,5 +1,5 @@
+using System;
 using System.Threading;
-using System.Threading.Tasks;
 using Patterns.Prototype.Enums;
 using Patterns.Prototype.Interfaces;
 using Patterns.Prototype.Organelles;
@@ -8,6 +8,8 @@ namespace Patterns.Prototype.Cell;
 
 public class Cell : ICloneable<Cell>
 {
+    public Action<Cell> RequestDivision;
+    
     private string _name;
     private CellType _type;
     private Organelle[] _organelles;
@@ -30,10 +32,8 @@ public class Cell : ICloneable<Cell>
         return new Cell(_name, _type, _organelles);
     }
 
-    private async void UpdateState()
+    public void UpdateState()
     {
-        //todo: figure out how to run update loop indefinitely without blocking the thread
-        //todo: possible solution instead of using Tasks set a big amount of tick iterations
         while (EnergyLevel > 0)
         {
             foreach (Organelle organelle in _organelles)
@@ -43,9 +43,8 @@ public class Cell : ICloneable<Cell>
 
             if (EnergyLevel >= _energyLevelToDivide)
             {
-                //todo: request divide
+                RequestDivision?.Invoke(this);
             }
-            await Task.Delay(100);
         }
     }
 

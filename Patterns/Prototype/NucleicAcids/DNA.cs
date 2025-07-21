@@ -48,6 +48,8 @@ public class DNA : ICloneable<DNA>
                 newNucleotides[i] = _nucleotides[i];
             }
         }
+        
+        Console.WriteLine($"Dna mutated\n{_nucleotides} => {newNucleotides}");
 
         return newNucleotides;
     }
