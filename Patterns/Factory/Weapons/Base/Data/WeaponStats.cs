@@ -2,8 +2,8 @@
 {
     public struct WeaponStats
     {
-        public int Damage = 0;
-        public float AttackSpeed = 1;
+        public int Damage;
+        public float AttackSpeed;
         public DamageType DamageType;
         public WieldType WieldType;
         public WeaponType WeaponType;
