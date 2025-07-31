@@ -1,5 +1,4 @@
 using System;
-using System.Threading;
 using Patterns.Prototype.Enums;
 using Patterns.Prototype.Interfaces;
 using Patterns.Prototype.Organelles;
@@ -9,6 +8,7 @@ namespace Patterns.Prototype.Cell
     public class Cell : ICloneable<Cell>
     {
         public Action<Cell> RequestDivision;
+        public string Name => _name;
     
         private string _name;
         private CellType _type;
@@ -17,24 +17,21 @@ namespace Patterns.Prototype.Cell
 
         private readonly int _energyLevelToDivide = 100;
     
-        private CancellationTokenSource _cancellationTokenSource;
-
         public Cell(string name, CellType type, Organelle[] organelles)
         {
             _name = name;
             _type = type;
             _organelles = organelles;
-            _cancellationTokenSource = new CancellationTokenSource();
         }
 
         public Cell Clone()
         {
-            return new Cell(_name, _type, _organelles);
+            return new Cell(_name, _type, CloneOrganelles());
         }
 
         public void UpdateState()
         {
-            while (EnergyLevel > 0)
+            if (EnergyLevel > 0)
             {
                 foreach (Organelle organelle in _organelles)
                 {
@@ -57,6 +54,17 @@ namespace Patterns.Prototype.Cell
             }
 
             return sum;
+        }
+
+        private Organelle[] CloneOrganelles()
+        {
+            Organelle[] clonedOrganelles = new Organelle[_organelles.Length];
+            for (int i = 0; i < _organelles.Length; i++)
+            {
+                clonedOrganelles[i] = _organelles[i].Clone();
+            }
+
+            return clonedOrganelles;
         }
     }
 }

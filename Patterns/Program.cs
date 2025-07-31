@@ -11,6 +11,7 @@ namespace Patterns
         {
             // RunAbstractFactory(new object[] { AbstractFactoryMain.FurnitureType.Modern });
             // RunBuilder();
+            RunPrototype();
         }
 
         private static void RunFactory()

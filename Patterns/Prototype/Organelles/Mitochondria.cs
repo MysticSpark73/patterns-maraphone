@@ -9,7 +9,7 @@ namespace Patterns.Prototype.Organelles
 
         private int _energyLevel;
 
-        public Mitochondria(int energyLevel = 0)
+        public Mitochondria(int energyLevel = 1)
         {
             _energyLevel = energyLevel;
         }
@@ -23,6 +23,11 @@ namespace Patterns.Prototype.Organelles
         {
             _energyLevel = (int) MathF.Round(_energyLevel / 2f);
             return new Mitochondria(_energyLevel);
+        }
+
+        public override int GetEnergyLevel()
+        {
+            return _energyLevel;
         }
     }
 }
