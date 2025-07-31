@@ -12,7 +12,7 @@ namespace Patterns.Prototype.NucleicAcids
         private Nucleotide[] _nucleotides;
         private Random _random;
 
-        private readonly float _mutationChance = 5f;
+        private readonly float _mutationChance = 80f;
 
         public Nucleotide[] Read() => _nucleotides;
 
@@ -49,9 +49,20 @@ namespace Patterns.Prototype.NucleicAcids
                 }
             }
         
-            Console.WriteLine($"Dna mutated\n{_nucleotides} => {newNucleotides}");
+            Console.WriteLine($"DNA mutated\n{NucleotidesToString(_nucleotides)} => {NucleotidesToString(newNucleotides)}");
 
             return newNucleotides;
+        }
+
+        private string NucleotidesToString(Nucleotide[] nucleotides)
+        {
+            string nucleotidesString = "";
+            for (int i = 0; i < nucleotides.Length; i++)
+            {
+                nucleotidesString += nucleotides[i].ToString();
+            }
+
+            return nucleotidesString;
         }
 
         public DNA Clone()
