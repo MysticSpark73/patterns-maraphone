@@ -2,6 +2,7 @@
 using Patterns.Builder;
 using Patterns.Factory;
 using Patterns.Prototype;
+using Patterns.Singleton;
 
 namespace Patterns
 {
@@ -11,7 +12,8 @@ namespace Patterns
         {
             // RunAbstractFactory(new object[] { AbstractFactoryMain.FurnitureType.Modern });
             // RunBuilder();
-            RunPrototype();
+            // RunPrototype();
+            RunSingleton();
         }
 
         private static void RunFactory()
@@ -36,6 +38,12 @@ namespace Patterns
         {
             PrototypeMain prototype = new PrototypeMain();
             prototype.Run(new []{"Eukaryotic"});
+        }
+
+        private static void RunSingleton()
+        {
+            SingletonMain singleton = new SingletonMain();
+            singleton.Run();
         }
     }
 }
