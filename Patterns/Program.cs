@@ -1,4 +1,5 @@
 ﻿using Patterns.AbstractFactory;
+using Patterns.Adapter;
 using Patterns.Builder;
 using Patterns.Factory;
 using Patterns.Prototype;
@@ -13,7 +14,8 @@ namespace Patterns
             // RunAbstractFactory(new object[] { AbstractFactoryMain.FurnitureType.Modern });
             // RunBuilder();
             // RunPrototype();
-            RunSingleton();
+            // RunSingleton();
+            RunAdapter();
         }
 
         private static void RunFactory()
@@ -44,6 +46,12 @@ namespace Patterns
         {
             SingletonMain singleton = new SingletonMain();
             singleton.Run();
+        }
+
+        private static void RunAdapter()
+        {
+            AdapterMain adapter = new AdapterMain();
+            adapter.Run();
         }
     }
 }
