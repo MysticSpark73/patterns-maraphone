@@ -6,7 +6,7 @@ namespace Patterns.Bridge.Makes
     {
         public override void Start()
         {
-            Console.WriteLine("Press tha button");
+            Console.WriteLine("Press the button");
         }
 
         public void EnableTheAutopilotMode(bool value)

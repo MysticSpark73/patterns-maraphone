@@ -1,5 +1,6 @@
 ﻿using Patterns.AbstractFactory;
 using Patterns.Adapter;
+using Patterns.Bridge;
 using Patterns.Builder;
 using Patterns.Factory;
 using Patterns.Prototype;
@@ -15,7 +16,8 @@ namespace Patterns
             // RunBuilder();
             // RunPrototype();
             // RunSingleton();
-            RunAdapter();
+            // RunAdapter();
+            RunBridge();
         }
 
         private static void RunFactory()
@@ -52,6 +54,14 @@ namespace Patterns
         {
             AdapterMain adapter = new AdapterMain();
             adapter.Run();
+        }
+        
+        //Structural
+
+        private static void RunBridge()
+        {
+            BridgeMain bridge = new BridgeMain();
+            bridge.Run();
         }
     }
 }
