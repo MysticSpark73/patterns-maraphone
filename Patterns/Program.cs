@@ -2,6 +2,7 @@
 using Patterns.Adapter;
 using Patterns.Bridge;
 using Patterns.Builder;
+using Patterns.Composite;
 using Patterns.Factory;
 using Patterns.Prototype;
 using Patterns.Singleton;
@@ -17,7 +18,8 @@ namespace Patterns
             // RunPrototype();
             // RunSingleton();
             // RunAdapter();
-            RunBridge();
+            // RunBridge();
+            RunComposite();
         }
 
         private static void RunFactory()
@@ -62,6 +64,12 @@ namespace Patterns
         {
             BridgeMain bridge = new BridgeMain();
             bridge.Run();
+        }
+
+        private static void RunComposite()
+        {
+            CompositeMain composite = new CompositeMain();
+            composite.Run();
         }
     }
 }
