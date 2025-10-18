@@ -1,7 +1,7 @@
+using System;
 using System.Collections.Generic;
-using Patterns.Facade.Items;
 
-namespace Patterns.Facade.Systems
+namespace Patterns.Facade.Items
 {
     public class ItemsDatabase
     {
@@ -67,5 +67,25 @@ namespace Patterns.Facade.Systems
                 new Item("Wireless Earbuds", 79.99f)
             }), 14 }
         };
+
+        private static IPurchasable? GetItem(string name)
+        {
+            foreach (var item in Items)
+            {
+                if (item.Key.GetName().Equals(name)) return item.Key;
+            }
+
+            Console.Out.WriteLine($"There is no item present in database with name {name}!!!");
+            return null;
+        }
+
+        public bool TryTakeItem(string name, out IPurchasable? item, int amount = 1)
+        {
+            item = GetItem(name);
+            if (item == null) return false;
+            if (Items[item] < amount) return false;
+            Items[item] -= amount;
+            return true;
+        }
     }
 }

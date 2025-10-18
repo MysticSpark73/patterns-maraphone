@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Patterns.Facade.Items;
 
-namespace Patterns.Facade.Subservices
+namespace Patterns.Facade.Subservices.Orders
 {
     public class Order : IPurchasable
     {
@@ -18,6 +18,7 @@ namespace Patterns.Facade.Subservices
             {
                 _items.Add(item, amount);
             }
+            Console.Out.WriteLine($"Added items {item.GetName()} x{_items[item]}");
         }
 
         public void RemoveItem(IPurchasable item, int amount = 1)
@@ -39,6 +40,17 @@ namespace Patterns.Facade.Subservices
             }
 
             return price;
+        }
+
+        public string GetName()
+        {
+            string name = String.Empty;
+            foreach (var item in _items)
+            {
+                name += $"{item.Key.GetName()} : x{item.Value}\n";
+            }
+
+            return name;
         }
     }
 }

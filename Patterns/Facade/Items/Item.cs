@@ -12,5 +12,7 @@ namespace Patterns.Facade.Items
         }
 
         public float GetPrice() => _price;
+
+        public string GetName() => _name;
     }
 }

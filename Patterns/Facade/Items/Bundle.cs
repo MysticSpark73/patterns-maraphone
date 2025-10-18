@@ -25,5 +25,7 @@ namespace Patterns.Facade.Items
 
             return price;
         }
+
+        public string GetName() => _name;
     }
 }
