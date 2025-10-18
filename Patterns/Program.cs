@@ -4,6 +4,7 @@ using Patterns.Bridge;
 using Patterns.Builder;
 using Patterns.Composite;
 using Patterns.Decorator;
+using Patterns.Facade;
 using Patterns.Factory;
 using Patterns.Prototype;
 using Patterns.Singleton;
@@ -21,7 +22,8 @@ namespace Patterns
             // RunAdapter();
             // RunBridge();
             // RunComposite();
-            RunDecorator();
+            // RunDecorator();
+            RunFacade();
         }
 
         private static void RunFactory()
@@ -78,6 +80,12 @@ namespace Patterns
         {
             DecoratorMain _decorator = new DecoratorMain();
             _decorator.Run();
+        }
+
+        private static void RunFacade()
+        {
+            FacadeMain facade = new FacadeMain();
+            facade.Run();
         }
     }
 }
