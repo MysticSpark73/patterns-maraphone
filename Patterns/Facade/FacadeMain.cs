@@ -18,6 +18,7 @@ namespace Patterns.Facade
         public void Run(object[]? args = null)
         {
             CreateFacade();
+            AssembleOrder();
         }
 
         private void CreateFacade()
@@ -35,12 +36,12 @@ namespace Patterns.Facade
             _facade.AddItem("Smartwatch Series 6");
             _facade.AddItem("HD Webcam");
             _facade.AddItem("Graphic Drawing Tablet");
-            _facade.AddItem("Bluetooth Speaker");
+            _facade.AddItem("Bluetooth Speaker", 3);
             _facade.AddItem("Traveler’s Power Pack");
             _facade.SetBillingData(PaymentMethod.DebitCard, "4149 1111 2222 3333 4444, 012");
             _facade.ProceedToCheckout();
-            _facade.ProceedToPayment();
             _facade.SetDeliveryInfo("some Address in some City", DeliveryType.NovaPost);
+            _facade.ProceedToPayment();
             
             
         }
