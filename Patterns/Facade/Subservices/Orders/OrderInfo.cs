@@ -58,7 +58,7 @@ namespace Patterns.Facade.Subservices.Orders
 
         public float GetPrice()
         {
-            return _order.GetPrice() + _deliveryInfo?.GetPrice() ?? 0;
+            return _order.GetPrice() + (_deliveryInfo?.GetPrice() ?? 0);
         }
     }
 }
