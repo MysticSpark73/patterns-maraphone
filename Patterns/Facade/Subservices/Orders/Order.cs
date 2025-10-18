@@ -6,7 +6,7 @@ namespace Patterns.Facade.Subservices.Orders
 {
     public class Order : IPurchasable
     {
-        private Dictionary<IPurchasable, int> _items;
+        private Dictionary<IPurchasable, int> _items = new ();
 
         public void AddItem(IPurchasable item, int amount = 1)
         {
