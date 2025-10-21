@@ -80,8 +80,8 @@ namespace Patterns
 
         private static void RunDecorator()
         {
-            DecoratorMain _decorator = new DecoratorMain();
-            _decorator.Run();
+            DecoratorMain decorator = new DecoratorMain();
+            decorator.Run();
         }
 
         private static void RunFacade()
