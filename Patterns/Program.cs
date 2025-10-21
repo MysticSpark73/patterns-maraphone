@@ -6,6 +6,7 @@ using Patterns.Composite;
 using Patterns.Decorator;
 using Patterns.Facade;
 using Patterns.Factory;
+using Patterns.Flyweight;
 using Patterns.Prototype;
 using Patterns.Singleton;
 
@@ -23,7 +24,8 @@ namespace Patterns
             // RunBridge();
             // RunComposite();
             // RunDecorator();
-            RunFacade();
+            // RunFacade();
+            RunFlyweight();
         }
 
         private static void RunFactory()
@@ -86,6 +88,12 @@ namespace Patterns
         {
             FacadeMain facade = new FacadeMain();
             facade.Run();
+        }
+
+        private static void RunFlyweight()
+        {
+            FlyweightMain flyweight = new FlyweightMain();
+            flyweight.Run();
         }
     }
 }
