@@ -5,19 +5,22 @@ namespace Patterns.Flyweight.Bullets
 {
     public class Bullet
     {
+        public Vector3 Position => _position;
+        public BulletType Type => _bulletType;
+        
         private Vector3 _position;
         private Vector3 _velocity;
         private Quaternion _rotation;
         private BulletType _bulletType;
         private BulletFlyweightData _bulletFlyweight;
 
-        public Bullet(Vector3 position, Vector3 velocity, Quaternion rotation, BulletType bulletType, BulletFlyweightData bulletFlyweight)
+        public Bullet(Vector3 position, Quaternion rotation, BulletType bulletType, BulletFlyweightData bulletFlyweight)
         {
             _position = position;
-            _velocity = velocity;
             _rotation = rotation;
             _bulletType = bulletType;
             _bulletFlyweight = bulletFlyweight;
+            _velocity = Vector3.Zero;
             
             Render();
         }
