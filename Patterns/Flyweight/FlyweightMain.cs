@@ -15,6 +15,7 @@ namespace Patterns.Flyweight
         private const int BULLETS_POOL_SIZE = 10;
         private const int Z_BOUND = 100;
         private const int EXPLOSION_BASE_DISTANCE = 10;
+        
         private readonly Vector3 SPAWN_POINT = new Vector3(0, 0, 0);
         private readonly Vector3 SHOOT_DIRECTION = Vector3.UnitZ;
         
@@ -59,7 +60,7 @@ namespace Patterns.Flyweight
 
         private async void UpdateBullets()
         {
-            while (_bullets.Count >0)
+            while (_bullets.Count > 0)
             {
                 await Task.Delay((int) DELTA * 1000);
                 
@@ -102,7 +103,8 @@ namespace Patterns.Flyweight
         private void ClearQueuedBullets()
         {
             Bullet temp;
-            for (int i = 0; i < _bulletsToDestroy.Count; i++)
+            int queueSize = _bulletsToDestroy.Count;
+            for (int i = 0; i < queueSize; i++)
             {
                 temp = _bulletsToDestroy.Dequeue();
                 if (_bullets.Contains(temp))
