@@ -30,8 +30,8 @@ namespace Patterns.Proxy
         private void CreatePaymentMethods()
         {
             _cash = new Cash(1000);
-            _card1 = new Card(6700, "49927398717", "19/28");
-            _card2 = new Card(666, "49927398716", "04/30");
+            _card1 = new Card(6700, "4992.7398.717", "19/28");
+            _card2 = new Card(666, "4992 7398 716", "04/30");
         }
 
         private void PerformOperations()

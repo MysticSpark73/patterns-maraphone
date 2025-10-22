@@ -7,7 +7,7 @@ namespace Patterns.Proxy.PaymentOperationProviders
 {
     public class CardOperationValidator : IPaymentOperationValidator<Card>
     {
-        private readonly Regex _numbersFilter = new Regex("/[0-9]/gm");
+        private readonly Regex _numbersFilter = new Regex("[0-9]");
         public bool ValidatePayment(Card card)
         {
             if (!ValidateCardNumber(card.Number))
@@ -54,9 +54,10 @@ namespace Patterns.Proxy.PaymentOperationProviders
         {
             digitsString = String.Empty;
             if (string.IsNullOrEmpty(data)) return false;
-            Match match = _numbersFilter.Match(data);
-            digitsString = match.Value;
+            
+            digitsString = string.Concat(_numbersFilter.Matches(data).Select(match => match.Value));
             Console.Out.WriteLine($"digitsString = {digitsString}");
+            
             if (string.IsNullOrEmpty(digitsString)) return false;
             return true;
         }
@@ -132,7 +133,7 @@ namespace Patterns.Proxy.PaymentOperationProviders
                 return false;
             }
 
-            return expirationDate <= currentDate;
+            return currentDate.CompareTo(expirationDate) <= 0;
         }
     }
 }
