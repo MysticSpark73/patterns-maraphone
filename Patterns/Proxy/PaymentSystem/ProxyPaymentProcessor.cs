@@ -14,7 +14,12 @@ namespace Patterns.Proxy.PaymentSystem
         };
 
         private BankPaymentProcessor _bankPaymentProcessor;
-        
+
+        public ProxyPaymentProcessor(BankPaymentProcessor bankPaymentProcessor)
+        {
+            _bankPaymentProcessor = bankPaymentProcessor;
+        }
+
         public bool ProcessPayment(PaymentMethod paymentMethod, float amount)
         {
             if (paymentMethod.Balance < amount)

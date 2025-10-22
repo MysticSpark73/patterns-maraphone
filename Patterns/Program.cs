@@ -8,6 +8,7 @@ using Patterns.Facade;
 using Patterns.Factory;
 using Patterns.Flyweight;
 using Patterns.Prototype;
+using Patterns.Proxy;
 using Patterns.Singleton;
 
 namespace Patterns
@@ -25,7 +26,8 @@ namespace Patterns
             // RunComposite();
             // RunDecorator();
             // RunFacade();
-            RunFlyweight();
+            // RunFlyweight();
+            RunProxy();
         }
 
         private static void RunFactory()
@@ -94,6 +96,12 @@ namespace Patterns
         {
             FlyweightMain flyweight = new FlyweightMain();
             flyweight.Run();
+        }
+
+        private static void RunProxy()
+        {
+            ProxyMain proxy = new ProxyMain();
+            proxy.Run();
         }
     }
 }
