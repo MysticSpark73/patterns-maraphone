@@ -30,6 +30,8 @@ namespace Patterns
             RunProxy();
         }
 
+        #region Creational
+
         private static void RunFactory()
         {
             FactoryMain factoryMain = new FactoryMain();
@@ -51,7 +53,7 @@ namespace Patterns
         private static void RunPrototype()
         {
             PrototypeMain prototype = new PrototypeMain();
-            prototype.Run(new []{"Eukaryotic"});
+            prototype.Run(new[] {"Eukaryotic"});
         }
 
         private static void RunSingleton()
@@ -65,8 +67,10 @@ namespace Patterns
             AdapterMain adapter = new AdapterMain();
             adapter.Run();
         }
-        
-        //Structural
+
+        #endregion
+
+        #region Structural
 
         private static void RunBridge()
         {
@@ -103,5 +107,7 @@ namespace Patterns
             ProxyMain proxy = new ProxyMain();
             proxy.Run();
         }
+
+        #endregion
     }
 }
