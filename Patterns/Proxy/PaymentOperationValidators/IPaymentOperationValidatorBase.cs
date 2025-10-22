@@ -1,6 +1,6 @@
 using Patterns.Proxy.PaymentMethods;
 
-namespace Patterns.Proxy.PaymentOperationProviders
+namespace Patterns.Proxy.PaymentOperationValidators
 {
     public interface IPaymentOperationValidatorBase
     {

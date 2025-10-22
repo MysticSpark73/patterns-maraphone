@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Patterns.Proxy.PaymentMethods;
-using Patterns.Proxy.PaymentOperationProviders;
+using Patterns.Proxy.PaymentOperationValidators;
 
 namespace Patterns.Proxy.PaymentSystem
 {

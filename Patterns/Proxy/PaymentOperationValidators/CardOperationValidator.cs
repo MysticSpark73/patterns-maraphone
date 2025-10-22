@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Patterns.Proxy.PaymentMethods;
 
-namespace Patterns.Proxy.PaymentOperationProviders
+namespace Patterns.Proxy.PaymentOperationValidators
 {
     public class CardOperationValidator : IPaymentOperationValidator<Card>
     {
