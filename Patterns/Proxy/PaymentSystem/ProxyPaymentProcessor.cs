@@ -33,6 +33,7 @@ namespace Patterns.Proxy.PaymentSystem
                 Console.Out.WriteLine("Operation Failed! Cause : Unsupported type of payment!");
                 return false;
             }
+            
             if (_paymentOperationProviders[paymentMethod.GetType()].ValidatePayment(paymentMethod))
             {
                 _bankPaymentProcessor.ProcessPayment(paymentMethod, amount);
