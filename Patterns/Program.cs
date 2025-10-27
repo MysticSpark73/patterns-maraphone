@@ -2,6 +2,7 @@
 using Patterns.Adapter;
 using Patterns.Bridge;
 using Patterns.Builder;
+using Patterns.ChainOfResponsibility;
 using Patterns.Composite;
 using Patterns.Decorator;
 using Patterns.Facade;
@@ -27,7 +28,8 @@ namespace Patterns
             // RunDecorator();
             // RunFacade();
             // RunFlyweight();
-            RunProxy();
+            // RunProxy();
+            RunChainOfResponsibility();
         }
 
         #region Creational
@@ -106,6 +108,16 @@ namespace Patterns
         {
             ProxyMain proxy = new ProxyMain();
             proxy.Run();
+        }
+
+        #endregion
+
+        #region Behavioral
+
+        private static void RunChainOfResponsibility()
+        {
+            ChainOfResponsibilityMain chainOfResponsibility = new ChainOfResponsibilityMain();
+            chainOfResponsibility.Run();
         }
 
         #endregion
