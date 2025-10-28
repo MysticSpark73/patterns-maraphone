@@ -3,7 +3,7 @@ namespace Patterns.ChainOfResponsibility.Data
     public class SaveData
     {
         public LevelData LevelData;
-        //todo: PlayerData
-        //todo: SkinsData
+        public PlayerData PlayerData;
+        public SkinData SkinData;
     }
 }

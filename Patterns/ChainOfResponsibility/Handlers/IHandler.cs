@@ -1,8 +1,10 @@
+using Patterns.ChainOfResponsibility.Data;
+
 namespace Patterns.ChainOfResponsibility.Handlers
 {
     public interface IHandler
     {
-        bool Handle();
+        bool Handle(SaveData? saveData);
 
         IHandler SetNext(IHandler handler);
     }

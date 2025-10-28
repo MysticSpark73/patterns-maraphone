@@ -10,18 +10,21 @@ namespace Patterns.ChainOfResponsibility
         
         public void Run(object[]? args = null)
         {
-            CreateGameInitializationManager();
             BuildGameInitializationHandler();
+            CreateGameInitializationManager(_gameInitializationHandler);
+            _gameInitializationManager.Initialize(null);
         }
 
-        private void CreateGameInitializationManager() => _gameInitializationManager = new GameInitializationManager();
+        private void CreateGameInitializationManager(IHandler handler) => 
+            _gameInitializationManager = new GameInitializationManager(handler);
 
         private void BuildGameInitializationHandler()
         {
             _gameInitializationHandler = new LocalDataHandler();
-            _gameInitializationHandler.SetNext(
-                new LoadLevelHandler().SetNext(
-                    new LoadPlayerHandler().SetNext(new FinalizationHandler())));
+
+            _gameInitializationHandler.SetNext(new LoadLevelHandler())
+                .SetNext(new LoadPlayerHandler())
+                .SetNext(new FinalizationHandler());
         }
     }
 }

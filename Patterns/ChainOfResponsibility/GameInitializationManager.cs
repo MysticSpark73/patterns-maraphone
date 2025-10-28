@@ -1,4 +1,5 @@
 using System;
+using Patterns.ChainOfResponsibility.Data;
 using Patterns.ChainOfResponsibility.Handlers;
 
 namespace Patterns.ChainOfResponsibility
@@ -7,12 +8,19 @@ namespace Patterns.ChainOfResponsibility
     {
         private IHandler _gameInitializationHandler;
 
-        public void Initialize()
+        public GameInitializationManager(IHandler gameInitializationHandler)
         {
-            if (!_gameInitializationHandler.Handle())
+            _gameInitializationHandler = gameInitializationHandler;
+        }
+
+        public void Initialize(SaveData? saveData)
+        {
+            if (!_gameInitializationHandler.Handle(saveData))
             {
                 Console.Out.WriteLine("Initialization Failed!!!");
+                return;
             }
+            Console.Out.WriteLine("Game Initialized Successfully!!!");
         }
     }
 }
