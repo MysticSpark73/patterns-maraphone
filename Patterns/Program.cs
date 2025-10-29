@@ -3,6 +3,7 @@ using Patterns.Adapter;
 using Patterns.Bridge;
 using Patterns.Builder;
 using Patterns.ChainOfResponsibility;
+using Patterns.Command;
 using Patterns.Composite;
 using Patterns.Decorator;
 using Patterns.Facade;
@@ -29,7 +30,8 @@ namespace Patterns
             // RunFacade();
             // RunFlyweight();
             // RunProxy();
-            RunChainOfResponsibility();
+            // RunChainOfResponsibility();
+            RunCommand();
         }
 
         #region Creational
@@ -118,6 +120,12 @@ namespace Patterns
         {
             ChainOfResponsibilityMain chainOfResponsibility = new ChainOfResponsibilityMain();
             chainOfResponsibility.Run();
+        }
+
+        private static void RunCommand()
+        {
+            CommandMain commandMain = new CommandMain();
+            commandMain.Run();
         }
 
         #endregion
