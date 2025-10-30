@@ -15,5 +15,13 @@ namespace Patterns.Command.Devices
 
             _commands.Remove(command);
         }
+
+        public void Execute()
+        {
+            foreach (var command in _commands)
+            {
+                command.Execute();
+            }
+        }
     }
 }

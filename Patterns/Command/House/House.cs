@@ -5,11 +5,12 @@ namespace Patterns.Command.House
 {
     public class House
     {
-        private List<RoomBase> _rooms;
+        private readonly List<RoomBase> _rooms = new();
 
-        public House(List<RoomBase> rooms)
+        public House()
         {
-            _rooms = rooms;
         }
+
+        public void AddRoom(RoomBase room) => _rooms.Add(room);
     }
 }
