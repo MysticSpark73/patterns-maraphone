@@ -27,6 +27,7 @@ namespace Patterns.Command.Commands
             
             _oven.SetEnabled(_isOn);
             _oven.SetTemperature(_temperature);
+            Console.Out.WriteLine($"The oven is set to {0}\nTemperature = {1}", _isOn ? "on" : "off", _temperature);
         }
 
         public override void Undo()

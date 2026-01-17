@@ -1,4 +1,6 @@
+using Patterns.Command.Commands;
 using Patterns.Command.Devices;
+using Patterns.Command.House;
 using Patterns.Command.Logger;
 using Patterns.Command.Rooms;
 using Patterns.Common;
@@ -9,10 +11,14 @@ namespace Patterns.Command
     {
         private CommandLogger _commandLogger;
         private House.House _house;
+        private List<HouseCommandItem> _houseCommandsMap = new ();
+        
         public void Run(object[]? args = null)
         {
             CreateLogger();
             BuildHouse();
+            CreateCommands();
+            ExecuteCommands();
         }
 
         private void CreateLogger()
@@ -44,6 +50,54 @@ namespace Patterns.Command
                 new SmartCurtains(),
                 new SmartOven()
             }));
+        }
+
+        private void CreateCommands()
+        {
+            _houseCommandsMap.Clear();
+            
+            foreach (var room in _house.GetRooms())
+            {
+                CreateCommandsForDevicesInRoom(room);
+            }
+        }
+
+        private void CreateCommandsForDevicesInRoom(RoomBase room)
+        {
+            foreach (var lightDevice in room.GetDevices<LightDevice>())
+            {
+                SwitchLightCommand switchLightCommand =
+                    new SwitchLightCommand(_commandLogger, lightDevice, !lightDevice.IsLightOn);
+                lightDevice.AddCommand(switchLightCommand);
+                    
+                _houseCommandsMap.Add(new HouseCommandItem(room, lightDevice, switchLightCommand));
+            }
+            
+            foreach (var curtains in room.GetDevices<SmartCurtains>())
+            {
+                RaiseCurtainsCommand raiseCurtainsCommand =
+                    new RaiseCurtainsCommand(_commandLogger, curtains, !curtains.IsClosed);
+                curtains.AddCommand(raiseCurtainsCommand);
+
+                _houseCommandsMap.Add(new HouseCommandItem(room, curtains, raiseCurtainsCommand));
+            }
+
+            foreach (var oven in room.GetDevices<SmartOven>())
+            {
+                ConfigureOvenCommand configureOvenCommand =
+                    new ConfigureOvenCommand(_commandLogger, oven, !oven.IsOn, 280);
+                oven.AddCommand(configureOvenCommand);
+                
+                _houseCommandsMap.Add(new HouseCommandItem(room, oven, configureOvenCommand));
+            }
+        }
+
+        private void ExecuteCommands()
+        {
+            foreach (var houseCommandItem in _houseCommandsMap.Where(i => i.device is LightDevice))
+            {
+                houseCommandItem.command.Execute();
+            }
         }
     }
 }

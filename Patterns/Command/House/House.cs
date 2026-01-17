@@ -11,5 +11,7 @@ namespace Patterns.Command.House
         }
 
         public void AddRoom(RoomBase room) => _rooms.Add(room);
+
+        public IReadOnlyList<RoomBase> GetRooms() => _rooms;
     }
 }

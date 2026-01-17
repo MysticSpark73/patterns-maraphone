@@ -19,5 +19,19 @@ namespace Patterns.Command.Rooms
 
             _devices.Remove(device);
         }
+
+        public T[] GetDevices<T>() where T : DeviceBase
+        {
+            List<T> result = new List<T>();
+            foreach (var device in _devices)
+            {
+                if (device is T)
+                {
+                    result.Add(device as T);
+                }
+            }
+
+            return result.ToArray();
+        }
     }
 }
