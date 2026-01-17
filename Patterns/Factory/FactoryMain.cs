@@ -1,5 +1,4 @@
-﻿using System;
-using Patterns.Common;
+﻿using Patterns.Common;
 using Patterns.Factory.Specific;
 using Patterns.Factory.Weapons.Base;
 using Patterns.Factory.Weapons.Base.Data;

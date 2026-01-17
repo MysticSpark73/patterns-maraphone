@@ -1,4 +1,3 @@
-using System;
 using Patterns.Common;
 
 namespace Patterns.Composite

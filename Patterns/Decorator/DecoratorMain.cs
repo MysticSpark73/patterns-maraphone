@@ -1,4 +1,3 @@
-using System;
 using Patterns.Common;
 using Patterns.Decorator.Decorators;
 using Patterns.Decorator.Items;

@@ -1,5 +1,4 @@
-﻿using System;
-using Patterns.Builder.Builders;
+﻿using Patterns.Builder.Builders;
 using Patterns.Builder.Cars;
 using Patterns.Builder.Cars.CarParts;
 using Patterns.Builder.Directors;

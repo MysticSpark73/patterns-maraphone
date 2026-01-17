@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Patterns.Common;
 using Patterns.Prototype.Data;
 using Patterns.Prototype.Factory;
