@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Patterns.Command.Devices;
 
 namespace Patterns.Command.Rooms

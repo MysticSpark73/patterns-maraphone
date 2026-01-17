@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Patterns.Command.Rooms;
 
 namespace Patterns.Command.House
