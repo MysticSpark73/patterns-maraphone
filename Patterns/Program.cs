@@ -19,115 +19,112 @@ namespace Patterns
     {
         static void Main(string[] args)
         {
-            // RunAbstractFactory(new object[] { AbstractFactoryMain.FurnitureType.Modern });
-            // RunBuilder();
-            // RunPrototype();
-            // RunSingleton();
-            // RunAdapter();
-            // RunBridge();
-            // RunComposite();
-            // RunDecorator();
-            // RunFacade();
-            // RunFlyweight();
-            // RunProxy();
-            // RunChainOfResponsibility();
-            RunCommand();
+            // Creational.RunAbstractFactory(new object[] { AbstractFactoryMain.FurnitureType.Modern });
+            // Creational.RunBuilder();
+            // Creational.RunPrototype();
+            // Creational.RunSingleton();
+            // Creational.RunAdapter();
+            // Structural.RunBridge();
+            // Structural.RunComposite();
+            // Structural.RunDecorator();
+            // Structural.RunFacade();
+            // Structural.RunFlyweight();
+            // Structural.RunProxy();
+            // Behavioral.RunChainOfResponsibility();
+            Behavioral.RunCommand();
         }
 
-        #region Creational
-
-        private static void RunFactory()
+        private static class Creational
         {
-            FactoryMain factoryMain = new FactoryMain();
-            factoryMain.Run();
+            public static void RunFactory()
+            {
+                FactoryMain factoryMain = new FactoryMain();
+                factoryMain.Run();
+            }
+
+            public static void RunAbstractFactory(object[]? args = null)
+            {
+                AbstractFactoryMain abstractFactoryMain = new AbstractFactoryMain();
+                abstractFactoryMain.Run(args);
+            }
+
+            public static void RunBuilder()
+            {
+                BuilderMain builder = new BuilderMain();
+                builder.Run();
+            }
+
+            public static void RunPrototype()
+            {
+                PrototypeMain prototype = new PrototypeMain();
+                prototype.Run(new[] {"Eukaryotic"});
+            }
+
+            public static void RunSingleton()
+            {
+                SingletonMain singleton = new SingletonMain();
+                singleton.Run();
+            }
+
+            public static void RunAdapter()
+            {
+                AdapterMain adapter = new AdapterMain();
+                adapter.Run();
+            }
         }
 
-        private static void RunAbstractFactory(object[]? args = null)
+        private static class Structural
         {
-            AbstractFactoryMain abstractFactoryMain = new AbstractFactoryMain();
-            abstractFactoryMain.Run(args);
-        }
+            public static void RunBridge()
+            {
+                BridgeMain bridge = new BridgeMain();
+                bridge.Run();
+            }
 
-        private static void RunBuilder()
+            public static void RunComposite()
+            {
+                CompositeMain composite = new CompositeMain();
+                composite.Run();
+            }
+
+            public static void RunDecorator()
+            {
+                DecoratorMain decorator = new DecoratorMain();
+                decorator.Run();
+            }
+
+            public static void RunFacade()
+            {
+                FacadeMain facade = new FacadeMain();
+                facade.Run();
+            }
+
+            public static void RunFlyweight()
+            {
+                FlyweightMain flyweight = new FlyweightMain();
+                flyweight.Run();
+            }
+
+            public static void RunProxy()
+            {
+                ProxyMain proxy = new ProxyMain();
+                proxy.Run();
+            }
+        }
+        
+        private static class Behavioral
         {
-            BuilderMain builder = new BuilderMain();
-            builder.Run();
+            public static void RunChainOfResponsibility()
+            {
+                ChainOfResponsibilityMain chainOfResponsibility = new ChainOfResponsibilityMain();
+                chainOfResponsibility.Run();
+            }
+
+            public static void RunCommand()
+            {
+                CommandMain commandMain = new CommandMain();
+                commandMain.Run();
+            }
         }
-
-        private static void RunPrototype()
-        {
-            PrototypeMain prototype = new PrototypeMain();
-            prototype.Run(new[] {"Eukaryotic"});
-        }
-
-        private static void RunSingleton()
-        {
-            SingletonMain singleton = new SingletonMain();
-            singleton.Run();
-        }
-
-        private static void RunAdapter()
-        {
-            AdapterMain adapter = new AdapterMain();
-            adapter.Run();
-        }
-
-        #endregion
-
-        #region Structural
-
-        private static void RunBridge()
-        {
-            BridgeMain bridge = new BridgeMain();
-            bridge.Run();
-        }
-
-        private static void RunComposite()
-        {
-            CompositeMain composite = new CompositeMain();
-            composite.Run();
-        }
-
-        private static void RunDecorator()
-        {
-            DecoratorMain decorator = new DecoratorMain();
-            decorator.Run();
-        }
-
-        private static void RunFacade()
-        {
-            FacadeMain facade = new FacadeMain();
-            facade.Run();
-        }
-
-        private static void RunFlyweight()
-        {
-            FlyweightMain flyweight = new FlyweightMain();
-            flyweight.Run();
-        }
-
-        private static void RunProxy()
-        {
-            ProxyMain proxy = new ProxyMain();
-            proxy.Run();
-        }
-
-        #endregion
-
-        #region Behavioral
-
-        private static void RunChainOfResponsibility()
-        {
-            ChainOfResponsibilityMain chainOfResponsibility = new ChainOfResponsibilityMain();
-            chainOfResponsibility.Run();
-        }
-
-        private static void RunCommand()
-        {
-            CommandMain commandMain = new CommandMain();
-            commandMain.Run();
-        }
-
-        #endregion
     }
 }
