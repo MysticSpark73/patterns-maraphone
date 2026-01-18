@@ -9,6 +9,7 @@ using Patterns.Decorator;
 using Patterns.Facade;
 using Patterns.Factory;
 using Patterns.Flyweight;
+using Patterns.Iterator;
 using Patterns.Prototype;
 using Patterns.Proxy;
 using Patterns.Singleton;
@@ -31,7 +32,8 @@ namespace Patterns
             // Structural.RunFlyweight();
             // Structural.RunProxy();
             // Behavioral.RunChainOfResponsibility();
-            Behavioral.RunCommand();
+            // Behavioral.RunCommand();
+            Behavioral.RunIterator();
         }
 
         private static class Creational
@@ -124,6 +126,12 @@ namespace Patterns
             {
                 CommandMain commandMain = new CommandMain();
                 commandMain.Run();
+            }
+
+            public static void RunIterator()
+            {
+                IteratorMain iteratorMain = new IteratorMain();
+                iteratorMain.Run();
             }
         }
     }
