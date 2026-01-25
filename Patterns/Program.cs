@@ -10,13 +10,14 @@ using Patterns.Facade;
 using Patterns.Factory;
 using Patterns.Flyweight;
 using Patterns.Iterator;
+using Patterns.Mediator;
 using Patterns.Prototype;
 using Patterns.Proxy;
 using Patterns.Singleton;
 
 namespace Patterns
 {
-    internal abstract class Program
+    public abstract class Program
     {
         static void Main(string[] args)
         {
@@ -33,7 +34,8 @@ namespace Patterns
             // Structural.RunProxy();
             // Behavioral.RunChainOfResponsibility();
             // Behavioral.RunCommand();
-            Behavioral.RunIterator();
+            // Behavioral.RunIterator();
+            Behavioral.RunMediator();
         }
 
         private static class Creational
@@ -132,6 +134,12 @@ namespace Patterns
             {
                 IteratorMain iteratorMain = new IteratorMain();
                 iteratorMain.Run();
+            }
+
+            public static void RunMediator()
+            {
+                MediatorMain mediatorMain = new MediatorMain();
+                mediatorMain.Run();
             }
         }
     }
