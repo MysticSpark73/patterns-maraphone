@@ -35,7 +35,8 @@ namespace Patterns
             // Behavioral.RunChainOfResponsibility();
             // Behavioral.RunCommand();
             // Behavioral.RunIterator();
-            Behavioral.RunMediator();
+            // Behavioral.RunMediator();
+            Behavioral.RunMemento();
         }
 
         private static class Creational
@@ -140,6 +141,11 @@ namespace Patterns
             {
                 MediatorMain mediatorMain = new MediatorMain();
                 mediatorMain.Run();
+            }
+
+            public static void RunMemento()
+            {
+                
             }
         }
     }
