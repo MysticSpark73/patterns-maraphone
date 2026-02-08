@@ -1,3 +1,5 @@
+using System.Numerics;
+using Patterns.Memento.Validation;
 using Patterns.Memento.Vectors;
 
 namespace Patterns.Memento.Checkers
@@ -21,6 +23,11 @@ namespace Patterns.Memento.Checkers
             return true;
         }
 
+        public bool IsEmpty(Vector2Int position)
+        {
+            return _board[position.x, position.y] == 0;
+        }
+
         public BoardMemento CreateSnapshot()
         {
             return new BoardMemento(_size, _board);
@@ -32,7 +39,7 @@ namespace Patterns.Memento.Checkers
             _board = memento.Board;
         }
 
-        public void Setup()
+        public BoardMemento Setup()
         {
             for (int x = 0; x < _size; x++)
             {
@@ -42,28 +49,51 @@ namespace Patterns.Memento.Checkers
                     _board[x, y] = 1;
                 }
             }
-        }
-
-        public BoardMemento MakeMove(Vector2Int from, Vector2Int to)
-        {
-            //todo: possibly add COR implementation here?
-            if (!IsOnBoard(from) || !IsOnBoard(to))
-            {
-                return CreateSnapshot();
-            }
-
-            if (_board[from.x, from.y] == 0 || _board[to.x, to.y] == 1)
-            {
-                return CreateSnapshot();
-            }
-            
-            //todo: validate move by direction and magnitude
-            //todo: maybe make it TryMakeMove() with out memento value?
-
-            _board[from.x, from.y] = 0;
-            _board[to.x, to.y] = 1;
+            Console.Out.WriteLine(ToString());
 
             return CreateSnapshot();
+        }
+
+        public bool TryMakeMove(Vector2Int from, Vector2Int to, out BoardMemento? snapshot)
+        {
+            snapshot = null;
+
+            if (ValidateMove(from, to))
+            {
+                _board[from.x, from.y] = 0;
+                _board[to.x, to.y] = 1;
+
+                snapshot = CreateSnapshot();
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool ValidateMove(Vector2Int from, Vector2Int to)
+        {
+            Vector2 direction = new Vector2(to.x - from.x, to.y - from.y);
+            IsWithinBoardHandler withinBoardHandler = new IsWithinBoardHandler(this, from, to);
+            withinBoardHandler
+                .SetNext(new IsNotEmptyHandler(this, from, to))
+                .SetNext(new DirectionValidationHandler(direction));
+
+            return withinBoardHandler.Handle();
+        }
+
+        public override string ToString()
+        {
+            string result = String.Empty;
+            for (int y = 0; y < _size; y++)
+            {
+                for (int x = 0; x < _size; x++)
+                {
+                    result += $"[ {_board[x, y]} ]";
+                }
+                result += "\n";
+            }
+
+            return result;
         }
     }
 }

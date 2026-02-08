@@ -11,6 +11,7 @@ using Patterns.Factory;
 using Patterns.Flyweight;
 using Patterns.Iterator;
 using Patterns.Mediator;
+using Patterns.Memento;
 using Patterns.Prototype;
 using Patterns.Proxy;
 using Patterns.Singleton;
@@ -145,7 +146,8 @@ namespace Patterns
 
             public static void RunMemento()
             {
-                
+                MementoMain mementoMain = new MementoMain();
+                mementoMain.Run();
             }
         }
     }
