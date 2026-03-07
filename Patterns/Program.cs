@@ -12,6 +12,7 @@ using Patterns.Flyweight;
 using Patterns.Iterator;
 using Patterns.Mediator;
 using Patterns.Memento;
+using Patterns.Observer;
 using Patterns.Prototype;
 using Patterns.Proxy;
 using Patterns.Singleton;
@@ -37,7 +38,8 @@ namespace Patterns
             // Behavioral.RunCommand();
             // Behavioral.RunIterator();
             // Behavioral.RunMediator();
-            Behavioral.RunMemento();
+            // Behavioral.RunMemento();
+            Behavioral.RunObserver();
         }
 
         private static class Creational
@@ -148,6 +150,12 @@ namespace Patterns
             {
                 MementoMain mementoMain = new MementoMain();
                 mementoMain.Run();
+            }
+
+            public static void RunObserver()
+            {
+                ObserverMain observerMain = new ObserverMain();
+                observerMain.Run();
             }
         }
     }
