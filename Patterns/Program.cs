@@ -6,6 +6,7 @@ using Patterns.ChainOfResponsibility;
 using Patterns.Command;
 using Patterns.Composite;
 using Patterns.Decorator;
+using Patterns.EventBus;
 using Patterns.Facade;
 using Patterns.Factory;
 using Patterns.Flyweight;
@@ -39,7 +40,8 @@ namespace Patterns
             // Behavioral.RunIterator();
             // Behavioral.RunMediator();
             // Behavioral.RunMemento();
-            Behavioral.RunObserver();
+            // Behavioral.RunObserver();
+            Behavioral.RunEventBus();
         }
 
         private static class Creational
@@ -156,6 +158,12 @@ namespace Patterns
             {
                 ObserverMain observerMain = new ObserverMain();
                 observerMain.Run();
+            }
+
+            public static void RunEventBus()
+            {
+                EventBusMain eventBus = new EventBusMain();
+                eventBus.Run();
             }
         }
     }
