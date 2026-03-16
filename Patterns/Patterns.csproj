@@ -8,4 +8,9 @@
         <LangVersion>preview</LangVersion>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Compile Remove="EventBus\Events\IEventBase.cs" />
+      <Compile Remove="EventBus\Events\EventBaseWithArgument.cs" />
+    </ItemGroup>
+
 </Project>
