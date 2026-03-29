@@ -17,6 +17,7 @@ using Patterns.Observer;
 using Patterns.Prototype;
 using Patterns.Proxy;
 using Patterns.Singleton;
+using Patterns.State;
 
 namespace Patterns
 {
@@ -41,7 +42,8 @@ namespace Patterns
             // Behavioral.RunMediator();
             // Behavioral.RunMemento();
             // Behavioral.RunObserver();
-            Behavioral.RunEventBus();
+            // Behavioral.RunEventBus();
+            Behavioral.RunState();
         }
 
         private static class Creational
@@ -164,6 +166,12 @@ namespace Patterns
             {
                 EventBusMain eventBus = new EventBusMain();
                 eventBus.Run();
+            }
+
+            public static void RunState()
+            {
+                StateMain state = new StateMain();
+                state.Run();
             }
         }
     }
