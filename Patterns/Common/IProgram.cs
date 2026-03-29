@@ -2,6 +2,6 @@
 {
     public interface IProgram
     {
-        void Run(object[]? args = null){}
+        void Run(params object[]? args){}
     }
 }
