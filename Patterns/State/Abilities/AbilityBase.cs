@@ -4,11 +4,13 @@ using Patterns.State.Characters;
 
 namespace Patterns.State.Abilities
 {
-    public abstract class AbilityBase : IDisposable
+    public abstract class AbilityBase : ICastable, IDisposable
     {
         public bool IsInstant => _data.castTime.IsInstant;
         public bool IsChannelable => _data.channelDuration.IsChannelable;
+        public bool HasDuration => _data.duration.HasDuration;
         public bool IsOnCooldown => _globalCooldownManager.IsOnCooldown || _localCooldownManager.IsOnCooldown;
+        public string Name => _data.name;
         public CastTime CastTime => _data.castTime;
         public ChannelDuration ChannelDuration => _data.channelDuration;
         
@@ -16,6 +18,7 @@ namespace Patterns.State.Abilities
         protected AbilityData _data;
         protected GlobalCooldownManager _globalCooldownManager;
         protected LocalCooldownManager _localCooldownManager;
+        protected AbilityCastData? _castData;
 
         protected Dictionary<StateType, AbilityCastStateBase> _stateTypeToState;
 
@@ -27,6 +30,11 @@ namespace Patterns.State.Abilities
             
             CreateStates();
             ChangeState(StateType.ReadyState);
+        }
+
+        public virtual void Cast()
+        {
+            _state.Cast();
         }
 
         public void ChangeState(StateType stateType)
@@ -51,11 +59,30 @@ namespace Patterns.State.Abilities
                 _globalCooldownManager.StartCooldownTimer();
             }
         }
-        
-        public virtual void OnChannelStart(){}
-        public virtual void OnChannelFinish(){}
+
+        public virtual void OnCast()
+        {
+            _castData = null;
+        }
+
+        public virtual void OnChannelStart() { }
+
+        public virtual void OnChannelFinish() { }
 
         public virtual void StartCooldown() => _localCooldownManager.StartCooldownTimer();
+
+        public virtual bool RequestCast(AbilityCastData abilityCastData)
+        {
+            if (abilityCastData.target == null)
+            {
+                Console.Out.WriteLine($"Can't cast {GetType()}! Spell requires target!");
+                return false;
+            }
+
+            _castData = abilityCastData;
+            Cast();
+            return true;
+        }
 
         private void CreateStates()
         {

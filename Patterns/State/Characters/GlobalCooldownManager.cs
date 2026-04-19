@@ -3,7 +3,7 @@ namespace Patterns.State.Characters
     public class GlobalCooldownManager : ICooldownManager
     {
         public bool IsOnCooldown => _isOnCooldown;
-        public const float CooldownValue = .5f;
+        public const float CooldownValue = 1.5f;
 
         private bool _isOnCooldown;
         private CancellationTokenSource? _cancellationTokenSource;

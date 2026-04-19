@@ -1,19 +1,36 @@
-using Patterns.State.Abilities.Data;
+using Patterns.State.Abilities;
+using Patterns.State.Characters;
 
 namespace Patterns.State.Classes
 {
     public abstract class ClassBase : IDisposable
     {
-        protected AbilityData[] _abilityDatas;
+        protected List<AbilityBase> _abilities;
+        protected GlobalCooldownManager _globalCooldownManager;
 
-        private void CreateAbilities()
+        protected ClassBase(GlobalCooldownManager globalCooldownManager)
         {
-            //todo: create abilities based on abilityDatas
+            _globalCooldownManager = globalCooldownManager;
+        }
+
+        protected abstract void CreateAbilities();
+
+        public AbilityBase? GetSpell(string name)
+        {
+            foreach (var ability in _abilities)
+            {
+                if (string.CompareOrdinal(name, ability.Name) == 0)
+                {
+                    return ability;
+                }
+            }
+
+            return null;
         }
 
         public void Dispose()
         {
-            //todo: dispose all abilities created
+            _abilities.ForEach(i => i.Dispose());
         }
     }
 }

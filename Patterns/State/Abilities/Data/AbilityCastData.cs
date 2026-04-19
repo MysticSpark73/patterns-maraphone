@@ -2,7 +2,7 @@ using Patterns.State.Characters;
 
 namespace Patterns.State.Abilities.Data
 {
-    public class AbilityCastData
+    public struct AbilityCastData
     {
         public CharacterBase caster;
         public CharacterBase? target;
