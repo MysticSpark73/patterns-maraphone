@@ -1,29 +1,28 @@
+using Patterns.State.Abilities.Data;
+
 namespace Patterns.State.Abilities.States
 {
     public class AbilityCastingState : AbilityCastStateBase
     {
         private Task _castingTask;
-        private CancellationTokenSource _cancellationTokenSource;
+        private CancellationTokenSource? _cancellationTokenSource;
+        private InterruptSource _interruptSource = InterruptSource.None;
 
-        public AbilityCastingState(AbilityBase ability) : base(ability)
-        {
-            _cancellationTokenSource = new CancellationTokenSource();
-        }
+        public AbilityCastingState(AbilityBase ability) : base(ability) { }
 
         public override void Cast()
         {
-            //todo: do nothing
+            //do nothing
         }
 
         public override void Cancel()
         {
             CancelCast();
-            //todo: go to ReadyState
         }
 
         public override void Interrupt()
         {
-            //todo: go to CooldownState
+            CancelCast(InterruptSource.Character);
         }
 
         public override void Channel()
@@ -33,6 +32,7 @@ namespace Patterns.State.Abilities.States
 
         public override void Enter()
         {
+            _interruptSource = InterruptSource.None;
             StartCast();
         }
 
@@ -44,28 +44,75 @@ namespace Patterns.State.Abilities.States
         private void StartCast()
         {
             _cancellationTokenSource = new CancellationTokenSource();
-            _castingTask = CastTask(_cancellationTokenSource.Token);
-            try
+
+            _ability.OnCastStart();
+
+            if (_ability.IsInstant)
             {
-                _castingTask.Start();
+                HandleSuccessFullCast();
             }
-            catch (TaskCanceledException e)
+            else
             {
-                //todo: go cooldown if interrupted and to ready if cancelled
+                _cancellationTokenSource = new CancellationTokenSource();
+                _castingTask = CastTask(_cancellationTokenSource.Token);
+            
+                try
+                {
+                    _castingTask.Start();
+                }
+                catch (TaskCanceledException e)
+                {
+                    HandleCancelledCast();
+                }
             }
         }
 
         private async Task CastTask(CancellationToken cancellationToken)
         {
-            await Task.Delay(500, cancellationToken);
-            //todo: go to channel/cooldown state
+            await Task.Delay((int) (_ability.CastTime.value.Value * 1000), cancellationToken);
+            HandleSuccessFullCast();
         }
 
-        private void CancelCast()
+        private void CancelCast(InterruptSource interruptSource = InterruptSource.Self)
         {
             if (_cancellationTokenSource != null && _cancellationTokenSource.Token.CanBeCanceled)
             {
+                _interruptSource = interruptSource;
                 _cancellationTokenSource.Cancel();
+            }
+            
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = null;
+        }
+
+        private void HandleCancelledCast()
+        {
+            switch (_interruptSource)
+            {
+                case InterruptSource.Self:
+                    _ability.ChangeState(StateType.ReadyState);
+                    break;
+                case InterruptSource.Character:
+                case InterruptSource.Effect:
+                    _ability.StartCooldown();
+                    _ability.ChangeState(StateType.ReadyState);
+                    break;
+                default:
+                    Console.Out.WriteLine("Ability cast was interrupted by unknown source!");
+                    break;
+            }
+        }
+
+        private void HandleSuccessFullCast()
+        {
+            if (_ability.IsChannelable)
+            {
+                _ability.ChangeState(StateType.ChannelingState);
+            }
+            else
+            {
+                _ability.StartCooldown();
+                _ability.ChangeState(StateType.ReadyState);
             }
         }
     }

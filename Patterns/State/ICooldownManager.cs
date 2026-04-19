@@ -1,6 +1,6 @@
 namespace Patterns.State
 {
-    public interface ICooldownManager
+    public interface ICooldownManager : IDisposable
     {
         public bool IsOnCooldown { get; }
 

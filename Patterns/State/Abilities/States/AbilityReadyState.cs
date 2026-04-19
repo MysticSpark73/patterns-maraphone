@@ -6,14 +6,13 @@ namespace Patterns.State.Abilities.States
 
         public override void Cast()
         {
-            if (_ability.IsInstant)
+            if (_ability.IsOnCooldown)
             {
-                //todo: go to CooldownState
+                Console.Out.WriteLine($"Ability {_ability.GetType()} is on cooldown and can't be cast!");
+                return;
             }
-            else
-            {
-                _ability.ChangeState(StateType.CastingState);
-            }
+            
+            _ability.ChangeState(StateType.CastingState);
         }
 
         public override void Cancel()
@@ -31,14 +30,8 @@ namespace Patterns.State.Abilities.States
             //do nothing
         }
 
-        public override void Enter()
-        {
-            
-        }
+        public override void Enter() { }
 
-        public override void Exit()
-        {
-            
-        }
+        public override void Exit() { }
     }
 }

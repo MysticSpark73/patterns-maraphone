@@ -3,7 +3,7 @@ using Patterns.State.Classes;
 
 namespace Patterns.State.Characters
 {
-    public class CharacterBase : IDamageable
+    public class CharacterBase : IDamageable, IDisposable
     {
         public bool IsAlive => _health > 0;
         
@@ -22,6 +22,11 @@ namespace Patterns.State.Characters
             }
             
             _health = Math.Max(_health - damage, 0);
+        }
+
+        public void Dispose()
+        {
+            _globalCooldownManager.Dispose();
         }
     }
 }

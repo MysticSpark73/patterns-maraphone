@@ -4,11 +4,13 @@ using Patterns.State.Characters;
 
 namespace Patterns.State.Abilities
 {
-    public abstract class AbilityBase
+    public abstract class AbilityBase : IDisposable
     {
         public bool IsInstant => _data.castTime.IsInstant;
         public bool IsChannelable => _data.channelDuration.IsChannelable;
         public bool IsOnCooldown => _globalCooldownManager.IsOnCooldown || _localCooldownManager.IsOnCooldown;
+        public CastTime CastTime => _data.castTime;
+        public ChannelDuration ChannelDuration => _data.channelDuration;
         
         protected AbilityCastStateBase _state;
         protected AbilityData _data;
@@ -34,6 +36,7 @@ namespace Patterns.State.Abilities
                 _state?.Exit();
                 _state = _stateTypeToState[stateType];
                 _state.Enter();
+                Console.Out.WriteLine($"{GetType()} ability state changed to {stateType}");
             }
             else
             {
@@ -41,13 +44,32 @@ namespace Patterns.State.Abilities
             }
         }
 
+        public virtual void OnCastStart()
+        {
+            if (_data.IsAffectedByGlobalCooldown)
+            {
+                _globalCooldownManager.StartCooldownTimer();
+            }
+        }
+        
+        public virtual void OnChannelStart(){}
+        public virtual void OnChannelFinish(){}
+
+        public virtual void StartCooldown() => _localCooldownManager.StartCooldownTimer();
+
         private void CreateStates()
         {
             _stateTypeToState = new Dictionary<StateType, AbilityCastStateBase>()
             {
                 { StateType.ReadyState, new AbilityReadyState(this) },
-                { StateType.CastingState, new AbilityCastingState(this) }
+                { StateType.CastingState, new AbilityCastingState(this) },
+                { StateType.ChannelingState, new AbilityChannelingState(this) }
             };
+        }
+
+        public void Dispose()
+        {
+            _localCooldownManager.Dispose();
         }
     }
 }

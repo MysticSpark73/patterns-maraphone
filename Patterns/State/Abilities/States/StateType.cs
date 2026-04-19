@@ -4,5 +4,6 @@ namespace Patterns.State.Abilities.States
     {
         ReadyState = 0,
         CastingState = 1,
+        ChannelingState = 2,
     }
 }
