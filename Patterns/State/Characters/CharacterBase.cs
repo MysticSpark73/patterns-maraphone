@@ -40,6 +40,7 @@ namespace Patterns.State.Characters
             
             if (!IsAlive)
             {
+                _effects.Clear();
                 OnDie?.Invoke();
             }
         }
