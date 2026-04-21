@@ -10,9 +10,13 @@ namespace Patterns.State.Abilities
         public bool IsChannelable => _data.channelDuration.IsChannelable;
         public bool HasDuration => _data.duration.HasDuration;
         public bool IsOnCooldown => _globalCooldownManager.IsOnCooldown || _localCooldownManager.IsOnCooldown;
+
+        protected bool CanDealDamage => Target != null && Target.IsAlive;
         public string Name => _data.name;
         public CastTime CastTime => _data.castTime;
         public ChannelDuration ChannelDuration => _data.channelDuration;
+
+        protected CharacterBase? Target => _castData?.target;
         
         protected AbilityCastStateBase _state;
         protected AbilityData _data;
@@ -62,12 +66,21 @@ namespace Patterns.State.Abilities
 
         public virtual void OnCast()
         {
+            string casterType = _castData?.caster.ToString() ?? "Undefined";
+            string targetType = _castData?.target?.ToString() ?? "Undefined";
+            Console.Out.WriteLine($"Ability {GetType()} was cast by {casterType} on {targetType}");
             _castData = null;
         }
 
-        public virtual void OnChannelStart() { }
+        public virtual void OnChannelStart()
+        {
+            Console.Out.WriteLine($"Ability {GetType()} is being channeled");
+        }
 
-        public virtual void OnChannelFinish() { }
+        public virtual void OnChannelFinish()
+        {
+            Console.Out.WriteLine($"Ability {GetType()} channel has been stopped");
+        }
 
         public virtual void StartCooldown() => _localCooldownManager.StartCooldownTimer();
 
@@ -93,7 +106,7 @@ namespace Patterns.State.Abilities
             };
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _localCooldownManager.Dispose();
         }
