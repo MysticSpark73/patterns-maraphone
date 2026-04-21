@@ -12,12 +12,14 @@ namespace Patterns.State.Characters
         
         private int _health;
         private int _mana;
+        private float _health;
+        private float _mana;
         
         private ClassBase _class;
         private GlobalCooldownManager _globalCooldownManager;
         protected AbilityBase _currentAbility;
 
-        public CharacterBase(int health, int mana, ClassType @class, GlobalCooldownManager globalCooldownManager)
+        public CharacterBase(float health, float mana, ClassType @class, GlobalCooldownManager globalCooldownManager)
         {
             _health = health;
             _mana = mana;
@@ -26,7 +28,7 @@ namespace Patterns.State.Characters
             _class = CreateClassByType(@class);
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
             if (!IsAlive) 
             {
