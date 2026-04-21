@@ -8,16 +8,16 @@ namespace Patterns.State.Characters
 {
     public class CharacterBase : IDamageable, IDisposable
     {
+        public Action OnDie;
         public bool IsAlive => _health > 0;
         
-        private int _health;
-        private int _mana;
         private float _health;
         private float _mana;
+        private List<EffectType> _effects = new ();
         
         private ClassBase _class;
         private GlobalCooldownManager _globalCooldownManager;
-        protected AbilityBase _currentAbility;
+        protected AbilityBase? _currentAbility;
 
         public CharacterBase(float health, float mana, ClassType @class, GlobalCooldownManager globalCooldownManager)
         {
@@ -37,6 +37,11 @@ namespace Patterns.State.Characters
             }
             
             _health = Math.Max(_health - damage, 0);
+            
+            if (!IsAlive)
+            {
+                OnDie?.Invoke();
+            }
         }
 
         public void CastSpell(string name, CharacterBase? target)
@@ -59,15 +64,66 @@ namespace Patterns.State.Characters
             }
         }
 
-        public void CancelSpell()
+        public bool TryCancelSpell()
         {
-            //todo: Implement Cancel cuurent spell
+            if (_currentAbility == null)
+            {
+                Console.Out.WriteLine($"Can't cancel ability on {GetType()}! There is nothing to be cancelled!");
+                return false; 
+            }
+
+            ICancelable? cancellableAbility = _currentAbility as ICancelable;
+
+            if (cancellableAbility == null)
+            {
+                Console.Out.WriteLine($"Ability {_currentAbility.GetType()} can not be cancelled!");
+                return false;
+            }
+
+            cancellableAbility.Cancel();
+            return true;
         }
 
-        public void InterruptSpell()
+        public bool TryInterruptSpell()
         {
-            //todo: Implement Interrupt cuurentSpell
+            if (_currentAbility == null)
+            {
+                Console.Out.WriteLine($"Can't cancel ability on {GetType()}! There is nothing to be cancelled!");
+                return false;
+            }
+
+            IInterruptable? interruptableAbility = _currentAbility as IInterruptable;
+            if (interruptableAbility == null)
+            {
+                Console.Out.WriteLine($"Ability {_currentAbility.GetType()} can not be Interrupted!");
+                return false;
+            }
+            
+            interruptableAbility.Interrupt();
+            return true;
         }
+
+        public bool TryApplyEffect(EffectType effectType)
+        {
+            if (_effects.Contains(effectType)) return false;
+            
+            _effects.Add(effectType);
+
+            return true;
+        }
+
+        public bool TryRemoveEffect(EffectType effectType)
+        {
+            if (_effects.Contains(effectType))
+            {
+                _effects.Remove(effectType);
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool IsEffectActive(EffectType effectType) => _effects.Contains(effectType);
 
         private ClassBase CreateClassByType(ClassType classType) => classType switch
         {
