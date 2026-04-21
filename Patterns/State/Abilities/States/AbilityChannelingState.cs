@@ -10,9 +10,10 @@ namespace Patterns.State.Abilities.States
         
         public AbilityChannelingState(AbilityBase ability) : base(ability) { }
 
-        public override void Cast()
+        public override bool Cast()
         {
             //do nothing
+            return false;
         }
 
         public override void Cancel()
@@ -92,7 +93,7 @@ namespace Patterns.State.Abilities.States
 
         private void HandleChannelFinished()
         {
-            //I mean yaeh they're identical I get it. But logically they're different and may result in different behaviours if logic ever extended.
+            //I mean yeah they're identical I get it. But logically they're different and may result in different behaviours if logic is ever extended.
             _ability.OnChannelFinish();
             _ability.StartCooldown();
             _ability.ChangeState(StateType.ReadyState);

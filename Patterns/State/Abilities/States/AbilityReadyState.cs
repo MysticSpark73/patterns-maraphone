@@ -1,18 +1,20 @@
+
 namespace Patterns.State.Abilities.States
 {
     public class AbilityReadyState : AbilityCastStateBase
     {
         public AbilityReadyState(AbilityBase ability) : base(ability) { }
 
-        public override void Cast()
+        public override bool Cast()
         {
             if (_ability.IsOnCooldown)
             {
                 Console.Out.WriteLine($"Ability {_ability.GetType()} is on cooldown and can't be cast!");
-                return;
+                return false;
             }
             
             _ability.ChangeState(StateType.CastingState);
+            return true;
         }
 
         public override void Cancel()

@@ -10,7 +10,7 @@ namespace Patterns.State.Abilities.States
         {
             _ability = ability;
         }
-        public abstract void Cast();
+        public abstract bool Cast();
 
         public abstract void Cancel();
 

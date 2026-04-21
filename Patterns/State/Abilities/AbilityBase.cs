@@ -32,9 +32,9 @@ namespace Patterns.State.Abilities
             ChangeState(StateType.ReadyState);
         }
 
-        public virtual void Cast()
+        public virtual bool Cast()
         {
-            _state.Cast();
+            return _state.Cast();
         }
 
         public void ChangeState(StateType stateType)
@@ -80,8 +80,7 @@ namespace Patterns.State.Abilities
             }
 
             _castData = abilityCastData;
-            Cast();
-            return true;
+            return Cast();
         }
 
         private void CreateStates()

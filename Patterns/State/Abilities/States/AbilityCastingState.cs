@@ -10,8 +10,9 @@ namespace Patterns.State.Abilities.States
 
         public AbilityCastingState(AbilityBase ability) : base(ability) { }
 
-        public override void Cast()
+        public override bool Cast()
         {
+            return false;
             //do nothing
         }
 
@@ -114,6 +115,7 @@ namespace Patterns.State.Abilities.States
                 _ability.StartCooldown();
                 _ability.ChangeState(StateType.ReadyState);
             }
+            _ability.OnCast();
         }
     }
 }
