@@ -5,13 +5,13 @@ namespace Patterns.State.Abilities.Data
         public static ChannelDuration Instant => new(null);
         
         public float? value;
+        public bool IsChannelable => value.HasValue && value.Value > 0;
 
         public ChannelDuration(float? value)
         {
             this.value = value;
         }
 
-        public bool IsChannelable => value.HasValue;
 
         public override string ToString()
         {

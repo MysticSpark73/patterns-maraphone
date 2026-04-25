@@ -48,7 +48,8 @@ namespace Patterns.State.Abilities.Data
                     channelDuration = ChannelDuration.Instant,
                     duration = new AbilityDuration(20),
                     cooldown = 60,
-                    requiredClass = ClassType.Warlock
+                    requiredClass = ClassType.Warlock,
+                    IsAffectedByGlobalCooldown = false
                 }
             }
         };

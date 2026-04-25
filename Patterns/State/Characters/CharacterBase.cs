@@ -115,6 +115,7 @@ namespace Patterns.State.Characters
             if (_effects.Contains(effectType)) return false;
             
             _effects.Add(effectType);
+            Console.Out.WriteLine($"Effect {effectType} was added to the {this}");
 
             return true;
         }
@@ -124,13 +125,14 @@ namespace Patterns.State.Characters
             if (_effects.Contains(effectType))
             {
                 _effects.Remove(effectType);
+                Console.Out.WriteLine($"Effect {effectType} was removed from the the {this}");
                 return true;
             }
 
             return false;
         }
 
-        public bool IsEffectActive(EffectType effectType) => _effects.Contains(effectType);
+        public bool IsEffectActive(EffectType effectType) => _effects.Any(i => i.Equals(effectType));
 
         private ClassBase CreateClassByType(ClassType classType) => classType switch
         {

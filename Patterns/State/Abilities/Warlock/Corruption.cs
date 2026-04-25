@@ -43,6 +43,7 @@ namespace Patterns.State.Abilities.Warlock
                 Target.OnDie += OnTargetDead;
                 Target.TryApplyEffect(EffectType.Corruption);
                 Target.TakeDamage(DamageOnCast);
+                Console.Out.WriteLine($"{Target?.GetType()} took {DamageOnCast} damage from {GetType()} corruption on cast");
             }
             else
             {
@@ -59,7 +60,7 @@ namespace Patterns.State.Abilities.Warlock
             
             CancelEffect();
 
-            _cancellationTokenSource = new CancellationTokenSource();
+            /*_cancellationTokenSource = new CancellationTokenSource();
 
             try
             {
@@ -71,7 +72,9 @@ namespace Patterns.State.Abilities.Warlock
 
                 if (Target == null) return;
                 Target.TryRemoveEffect(EffectType.Corruption);
-            }
+            }*/
+            
+            StartEffect();
         }
 
         private async Task SpellEffectTask(CancellationToken cancellationToken)
@@ -105,6 +108,33 @@ namespace Patterns.State.Abilities.Warlock
             
             _cancellationTokenSource?.Dispose();
             _cancellationTokenSource = null;
+        }
+
+        private void StartEffect()
+        {
+            _ = RunEffectAsync();
+        }
+
+        private async Task RunEffectAsync()
+        {
+            _cancellationTokenSource = new CancellationTokenSource();
+
+            try
+            {
+                await SpellEffectTask(_cancellationTokenSource.Token);
+            }
+            catch (OperationCanceledException e)
+            {
+                _timeSpent = 0;
+
+                if (Target == null) return;
+                Target.TryRemoveEffect(EffectType.Corruption);
+            }
+            catch (Exception e)
+            {
+                Console.Out.WriteLine(e.Message);
+                throw;
+            }
         }
 
         public override void Dispose()

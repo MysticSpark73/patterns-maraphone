@@ -67,7 +67,10 @@ namespace Patterns.State.Abilities.States
 
         private async Task CastTask(CancellationToken cancellationToken)
         {
-            await Task.Delay((int) (_ability.CastTime.value.Value * 1000), cancellationToken);
+            if (!_ability.CastTime.IsInstant)
+            {
+                await Task.Delay((int) (_ability.CastTime.value.Value * 1000), cancellationToken);
+            }
             HandleSuccessFullCast();
         }
 

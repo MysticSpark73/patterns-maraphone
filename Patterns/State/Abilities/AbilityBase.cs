@@ -9,7 +9,9 @@ namespace Patterns.State.Abilities
         public bool IsInstant => _data.castTime.IsInstant;
         public bool IsChannelable => _data.channelDuration.IsChannelable;
         public bool HasDuration => _data.duration.HasDuration;
-        public bool IsOnCooldown => _globalCooldownManager.IsOnCooldown || _localCooldownManager.IsOnCooldown;
+
+        public bool IsOnCooldown => (_data.IsAffectedByGlobalCooldown && _globalCooldownManager.IsOnCooldown) ||
+                                    _localCooldownManager.IsOnCooldown;
 
         protected bool CanDealDamage => Target != null && Target.IsAlive;
         public string Name => _data.name;
@@ -70,7 +72,6 @@ namespace Patterns.State.Abilities
             string casterType = _castData?.caster.ToString() ?? "Undefined";
             string targetType = _castData?.target?.ToString() ?? "Undefined";
             Console.Out.WriteLine($"Ability {GetType()} was cast by {casterType} on {targetType}");
-            _castData = null;
         }
 
         public virtual void OnChannelStart()
