@@ -35,18 +35,22 @@ namespace Patterns.State
             _player.CastSpell(AbilityDatabase.AbilityNames.Warlock.Corruption, _trainingDummy);
             await Task.Delay(2000);
             _player.CastSpell(AbilityDatabase.AbilityNames.Warlock.Haunt, _trainingDummy);
+            await Task.Delay(2000);
             _player.CastSpell(AbilityDatabase.AbilityNames.Warlock.Malevolence, _trainingDummy);
             _player.CastSpell(AbilityDatabase.AbilityNames.Warlock.DrainSoul, _trainingDummy);
             await Task.Delay(2000);
             _player.CastSpell(AbilityDatabase.AbilityNames.Warlock.Haunt, _trainingDummy);
-            await Task.Delay(50);
+            await Task.Delay(100);
             _player.TryInterruptSpell();
+            _player.TryCancelSpell();
+            await Task.Delay(2000);
             _player.CastSpell(AbilityDatabase.AbilityNames.Warlock.Haunt, _trainingDummy);
             await Task.Delay(1000);
             _player.TryCancelSpell();
             await Task.Delay(20000);
             Console.Out.WriteLine("Simulation Finished!");
             Console.ReadLine();
+            Console.Out.WriteLine($"Training dummy HP = {_trainingDummy.CurrentHealth}");
         }
     }
 }

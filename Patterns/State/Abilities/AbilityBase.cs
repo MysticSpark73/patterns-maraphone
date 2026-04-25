@@ -48,10 +48,11 @@ namespace Patterns.State.Abilities
         {
             if (_stateTypeToState.ContainsKey(stateType))
             {
+                var temp = _state;
                 _state?.Exit();
                 _state = _stateTypeToState[stateType];
                 _state.Enter();
-                Console.Out.WriteLine($"{GetType()} ability state changed to {stateType}");
+                Console.Out.WriteLine($"{GetType()} ability state changed from {temp} ---> {stateType}");
             }
             else
             {

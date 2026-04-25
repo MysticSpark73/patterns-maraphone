@@ -88,7 +88,8 @@ namespace Patterns.State.Characters
             }
 
             cancellableAbility.Cancel();
-            Console.Out.WriteLine($"{GetType()} was Cancelled!!!");
+            Console.Out.WriteLine($"{_currentAbility} was Cancelled!!!");
+            _currentAbility = null;
             return true;
         }
 
@@ -108,7 +109,8 @@ namespace Patterns.State.Characters
             }
             
             interruptableAbility.Interrupt();
-            Console.Out.WriteLine($"{GetType()} was Interrupted!!!");
+            Console.Out.WriteLine($"{_currentAbility} was Interrupted!!!");
+            _currentAbility = null;
             return true;
         }
 
