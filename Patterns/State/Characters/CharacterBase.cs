@@ -10,9 +10,13 @@ namespace Patterns.State.Characters
     {
         public Action OnDie;
         public bool IsAlive => _health > 0;
+        public float CurrentHealth => _health;
+        public float MaxHealth => _maxHealth;
         
         private float _health;
         private float _mana;
+        private float _maxHealth;
+        private float _maxMana;
         private List<EffectType> _effects = new ();
         
         private ClassBase _class;
@@ -23,6 +27,8 @@ namespace Patterns.State.Characters
         {
             _health = health;
             _mana = mana;
+            _maxHealth = _health;
+            _maxMana = mana;
             _globalCooldownManager = globalCooldownManager;
             
             _class = CreateClassByType(@class);

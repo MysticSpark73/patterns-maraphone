@@ -24,11 +24,13 @@ namespace Patterns.State.Abilities.Warlock
         public void Cancel()
         {
             _state.Cancel();
+            CancelEffect();
         }
 
         public void Interrupt()
         {
             _state.Interrupt();
+            CancelEffect();
         }
 
         public override void OnCast()
@@ -67,8 +69,10 @@ namespace Patterns.State.Abilities.Warlock
             }
             catch (OperationCanceledException e)
             {
-                Console.WriteLine(e);
-                throw;
+                _timeSpent = 0;
+
+                if (Target == null) return;
+                Target.TryRemoveEffect(EffectType.Corruption);
             }
         }
 
@@ -81,7 +85,9 @@ namespace Patterns.State.Abilities.Warlock
 
                 if (CanDealDamage && Target != null)
                 {
-                    Target.TakeDamage(DamagePerTick * (Target.IsEffectActive(EffectType.Haunt) ? HauntMultiplier : 1));
+                    float damage = DamagePerTick * (Target.IsEffectActive(EffectType.Haunt) ? HauntMultiplier : 1);
+                    Target.TakeDamage(damage);
+                    Console.Out.WriteLine($"{Target?.GetType()} took {damage} damage from {GetType()}");
                 }
                 else
                 {
@@ -101,7 +107,6 @@ namespace Patterns.State.Abilities.Warlock
             
             _cancellationTokenSource?.Dispose();
             _cancellationTokenSource = null;
-            _timeSpent = 0;
         }
 
         public override void Dispose()

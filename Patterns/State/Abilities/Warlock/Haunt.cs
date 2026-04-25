@@ -5,18 +5,92 @@ namespace Patterns.State.Abilities.Warlock
 {
     public class Haunt : AbilityBase, ICancelable, IInterruptable
     {
+        private const int DamageOnCast = 720;
+
+        private CancellationTokenSource _cancellationTokenSource;
+        private Task _effectTask;
+        
         public Haunt(AbilityData data, GlobalCooldownManager cooldownManager) : base(data, cooldownManager)
         {
         }
-        
+
+        public override void OnCast()
+        {
+            base.OnCast();
+
+            if (CanDealDamage)
+            {
+                if (Target == null) return;
+
+                Target.OnDie += OnTargetDied;
+                Target.TryApplyEffect(EffectType.Haunt);
+                Target.TakeDamage(DamageOnCast);
+                Console.Out.WriteLine($"{Target.GetType()} took {DamageOnCast} from {GetType()}");
+            }
+            else
+            {
+                Console.Out.WriteLine($"Target is already dead!");
+                return;
+            }
+
+            CancelEffect();
+            _cancellationTokenSource = new CancellationTokenSource();
+            _effectTask = SpellEffectTask(_cancellationTokenSource.Token);
+
+            try
+            {
+                _effectTask.Start();
+            }
+            catch (Exception e)
+            {
+                OnEffectCancelled();
+            }
+        }
+
         public void Cancel()
         {
-            throw new NotImplementedException();
+            _state.Cancel();
         }
 
         public void Interrupt()
         {
-            throw new NotImplementedException();
+            _state.Interrupt();
+        }
+
+        private async Task SpellEffectTask(CancellationToken cancellationToken)
+        {
+            await Task.Delay((int)(_data.duration.value.Value * 1000), cancellationToken);
+            
+            OnEffectCancelled();
+        }
+
+        private void CancelEffect()
+        {
+            if (_cancellationTokenSource != null && _cancellationTokenSource.Token.CanBeCanceled)
+            {
+                _cancellationTokenSource.Cancel();
+            }
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = null;
+        }
+
+        private void OnTargetDied()
+        {
+            CancelEffect();
+        }
+
+        private void OnEffectCancelled()
+        {
+            if (Target == null) return;
+
+            Target.TryRemoveEffect(EffectType.Haunt);
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+
+            OnEffectCancelled();
         }
     }
 }
