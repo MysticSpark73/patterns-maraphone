@@ -17,6 +17,7 @@ namespace Patterns.State.Abilities
         public ChannelDuration ChannelDuration => _data.channelDuration;
 
         protected CharacterBase? Target => _castData?.target;
+        protected CharacterBase? Caster => _castData?.caster;
         
         protected AbilityCastStateBase _state;
         protected AbilityData _data;
