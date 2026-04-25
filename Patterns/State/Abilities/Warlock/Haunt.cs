@@ -8,13 +8,12 @@ namespace Patterns.State.Abilities.Warlock
         private const int DamageOnCast = 720;
 
         private CancellationTokenSource _cancellationTokenSource;
-        private Task _effectTask;
         
         public Haunt(AbilityData data, GlobalCooldownManager cooldownManager) : base(data, cooldownManager)
         {
         }
 
-        public override void OnCast()
+        public override async void OnCast()
         {
             base.OnCast();
 
@@ -35,11 +34,10 @@ namespace Patterns.State.Abilities.Warlock
 
             CancelEffect();
             _cancellationTokenSource = new CancellationTokenSource();
-            _effectTask = SpellEffectTask(_cancellationTokenSource.Token);
 
             try
             {
-                _effectTask.Start();
+                await SpellEffectTask(_cancellationTokenSource.Token);
             }
             catch (Exception e)
             {

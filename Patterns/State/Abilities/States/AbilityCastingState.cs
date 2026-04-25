@@ -4,7 +4,6 @@ namespace Patterns.State.Abilities.States
 {
     public class AbilityCastingState : AbilityCastStateBase
     {
-        private Task _castingTask;
         private CancellationTokenSource? _cancellationTokenSource;
         private InterruptSource _interruptSource = InterruptSource.None;
 
@@ -42,7 +41,7 @@ namespace Patterns.State.Abilities.States
             CancelCast();
         }
 
-        private void StartCast()
+        private async void StartCast()
         {
             _cancellationTokenSource = new CancellationTokenSource();
 
@@ -55,11 +54,9 @@ namespace Patterns.State.Abilities.States
             else
             {
                 _cancellationTokenSource = new CancellationTokenSource();
-                _castingTask = CastTask(_cancellationTokenSource.Token);
-            
                 try
                 {
-                    _castingTask.Start();
+                    await CastTask(_cancellationTokenSource.Token);
                 }
                 catch (TaskCanceledException e)
                 {

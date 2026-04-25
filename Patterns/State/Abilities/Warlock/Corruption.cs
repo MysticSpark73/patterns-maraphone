@@ -14,7 +14,6 @@ namespace Patterns.State.Abilities.Warlock
         private const float HauntMultiplier = 1.12f;
         
         private CancellationTokenSource? _cancellationTokenSource;
-        private Task? _effectTask;
         private int _timeSpent = 0;
         
         public Corruption(AbilityData data, GlobalCooldownManager cooldownManager) : base(data, cooldownManager)
@@ -33,7 +32,7 @@ namespace Patterns.State.Abilities.Warlock
             CancelEffect();
         }
 
-        public override void OnCast()
+        public override async void OnCast()
         {
             base.OnCast();
 
@@ -61,11 +60,10 @@ namespace Patterns.State.Abilities.Warlock
             CancelEffect();
 
             _cancellationTokenSource = new CancellationTokenSource();
-            _effectTask = SpellEffectTask(_cancellationTokenSource.Token);
 
             try
             {
-                _effectTask.Start();
+                await SpellEffectTask(_cancellationTokenSource.Token);
             }
             catch (OperationCanceledException e)
             {

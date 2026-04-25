@@ -5,7 +5,6 @@ namespace Patterns.State.Abilities.States
     public class AbilityChannelingState : AbilityCastStateBase
     {
         private CancellationTokenSource? _cancellationTokenSource;
-        private Task _channelTask;
         private InterruptSource _interruptSource = InterruptSource.None;
         
         public AbilityChannelingState(AbilityBase ability) : base(ability) { }
@@ -42,7 +41,7 @@ namespace Patterns.State.Abilities.States
             CancelChannel();
         }
 
-        private void StartChanneling()
+        private async void StartChanneling()
         {
             if (!_ability.ChannelDuration.IsChannelable)
             {
@@ -54,11 +53,10 @@ namespace Patterns.State.Abilities.States
             
             _ability.OnChannelStart();
             _cancellationTokenSource = new CancellationTokenSource();
-            _channelTask = ChannelTask(_cancellationTokenSource.Token);
             
             try
             {
-                _channelTask.Start();
+                await ChannelTask(_cancellationTokenSource.Token);
             }
             catch (OperationCanceledException e)
             {

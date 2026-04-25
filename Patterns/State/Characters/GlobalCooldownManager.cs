@@ -7,9 +7,8 @@ namespace Patterns.State.Characters
 
         private bool _isOnCooldown;
         private CancellationTokenSource? _cancellationTokenSource;
-        private Task _cooldownTask;
 
-        public void StartCooldownTimer()
+        public async void StartCooldownTimer()
         {
             if (_isOnCooldown)
             {
@@ -20,11 +19,10 @@ namespace Patterns.State.Characters
             else
             {
                 _cancellationTokenSource = new CancellationTokenSource();
-                _cooldownTask = CooldownTask(_cancellationTokenSource.Token);
 
                 try
                 {
-                    _cooldownTask.Start();
+                    await CooldownTask(_cancellationTokenSource.Token);
                 }
                 catch (OperationCanceledException e)
                 {

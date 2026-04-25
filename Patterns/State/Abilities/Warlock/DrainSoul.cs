@@ -9,7 +9,6 @@ namespace Patterns.State.Abilities.Warlock
         private const int DamagePerTick = 13;
         
         private CancellationTokenSource? _cancellationTokenSource;
-        private Task? _effectTask;
         private int _timeSpent = 0;
         
         public DrainSoul(AbilityData data, GlobalCooldownManager cooldownManager) : base(data, cooldownManager)
@@ -38,7 +37,7 @@ namespace Patterns.State.Abilities.Warlock
             //do nothing?
         }
 
-        public override void OnChannelStart()
+        public override async void OnChannelStart()
         {
             if (CanDealDamage)
             {
@@ -62,11 +61,10 @@ namespace Patterns.State.Abilities.Warlock
             CancelEffect();
             
             _cancellationTokenSource = new CancellationTokenSource();
-            _effectTask = SpellEffectTask(_cancellationTokenSource.Token);
 
             try
             {
-                _effectTask.Start();
+                await SpellEffectTask(_cancellationTokenSource.Token);
             }
             catch (OperationCanceledException e)
             {

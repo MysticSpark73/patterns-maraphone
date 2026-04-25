@@ -7,13 +7,12 @@ namespace Patterns.State.Abilities.Warlock
     {
 
         private CancellationTokenSource _cancellationTokenSource;
-        private Task _effectTask;
         
         public Malevolence(AbilityData data, GlobalCooldownManager cooldownManager) : base(data, cooldownManager)
         {
         }
 
-        public override void OnCast()
+        public override async void OnCast()
         {
             base.OnCast();
             
@@ -26,12 +25,11 @@ namespace Patterns.State.Abilities.Warlock
             CancelEffect();
 
             _cancellationTokenSource = new CancellationTokenSource();
-            _effectTask = SpellEffectTask();
             Caster.OnDie += OnCasterDied;
 
             try
             {
-                _effectTask.Start();
+                await SpellEffectTask(_cancellationTokenSource.Token);
             }
             catch (OperationCanceledException e)
             {
@@ -53,11 +51,11 @@ namespace Patterns.State.Abilities.Warlock
             Caster.OnDie -= OnCasterDied;
         }
 
-        private async Task SpellEffectTask()
+        private async Task SpellEffectTask(CancellationToken cancellationToken)
         {
             Caster?.TryApplyEffect(EffectType.Malevolence);
             Console.Out.WriteLine("IDK your spell power is increased I guess");
-            await Task.Delay((int)(_data.duration.value.Value * 1000));
+            await Task.Delay((int)(_data.duration.value.Value * 1000), cancellationToken);
             OnEffectCancelled();
         }
 

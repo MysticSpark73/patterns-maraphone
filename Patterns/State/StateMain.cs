@@ -1,6 +1,5 @@
 using Patterns.Common;
 using Patterns.State.Abilities.Data;
-using Patterns.State.Abilities.Warlock;
 using Patterns.State.Characters;
 using Patterns.State.Classes.Data;
 

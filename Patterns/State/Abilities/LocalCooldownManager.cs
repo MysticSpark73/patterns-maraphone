@@ -7,21 +7,19 @@ namespace Patterns.State.Abilities
         private bool _isOnCooldown;
         private float _delay;
         private CancellationTokenSource? _cancellationTokenSource;
-        private Task _delayTask;
 
         public LocalCooldownManager(float delay)
         {
             _delay = delay;
         }
 
-        public void StartCooldownTimer()
+        public async void StartCooldownTimer()
         {
             _cancellationTokenSource = new CancellationTokenSource();
-            _delayTask = CooldownTimerAsync(_cancellationTokenSource.Token);
 
             try
             {
-                _delayTask.Start();
+                await CooldownTimerAsync(_cancellationTokenSource.Token);
             }
             catch (OperationCanceledException e)
             {
