@@ -13,7 +13,7 @@ namespace Patterns.State
         public void Run(object[]? args = null)
         {
             CreateActors();
-            SimulateCombat().GetAwaiter().GetResult();
+            Simulation().GetAwaiter().GetResult();
         }
 
         private void CreateActors()
@@ -21,6 +21,11 @@ namespace Patterns.State
             Console.Out.WriteLine("Creating Actors!!!");
             _player = new CharacterBase(5000, 5000, ClassType.Warlock, new GlobalCooldownManager());
             _trainingDummy = new CharacterBase(10000, 0, ClassType.Warlock, new GlobalCooldownManager());
+        }
+
+        private async Task Simulation()
+        {
+            await SimulateCombat();
         }
 
         private async Task SimulateCombat()
@@ -32,6 +37,13 @@ namespace Patterns.State
             _player.CastSpell(AbilityDatabase.AbilityNames.Warlock.Haunt, _trainingDummy);
             _player.CastSpell(AbilityDatabase.AbilityNames.Warlock.Malevolence, _trainingDummy);
             _player.CastSpell(AbilityDatabase.AbilityNames.Warlock.DrainSoul, _trainingDummy);
+            await Task.Delay(2000);
+            _player.CastSpell(AbilityDatabase.AbilityNames.Warlock.Haunt, _trainingDummy);
+            await Task.Delay(50);
+            _player.TryInterruptSpell();
+            _player.CastSpell(AbilityDatabase.AbilityNames.Warlock.Haunt, _trainingDummy);
+            await Task.Delay(1000);
+            _player.TryCancelSpell();
             await Task.Delay(20000);
             Console.Out.WriteLine("Simulation Finished!");
             Console.ReadLine();
