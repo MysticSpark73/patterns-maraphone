@@ -1,4 +1,5 @@
 using Patterns.State.Abilities.Data;
+using Patterns.State.Extensions;
 
 namespace Patterns.State.Abilities.States
 {
@@ -41,7 +42,7 @@ namespace Patterns.State.Abilities.States
             CancelChannel();
         }
 
-        private async void StartChanneling()
+        private void StartChanneling()
         {
             if (!_ability.ChannelDuration.IsChannelable)
             {
@@ -56,7 +57,7 @@ namespace Patterns.State.Abilities.States
             
             try
             {
-                await ChannelTask(_cancellationTokenSource.Token);
+                ChannelTask(_cancellationTokenSource.Token).Forget();
             }
             catch (OperationCanceledException e)
             {

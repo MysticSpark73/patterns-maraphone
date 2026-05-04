@@ -1,5 +1,6 @@
 using Patterns.State.Abilities.Data;
 using Patterns.State.Characters;
+using Patterns.State.Extensions;
 
 namespace Patterns.State.Abilities.Warlock
 {
@@ -37,7 +38,7 @@ namespace Patterns.State.Abilities.Warlock
             //do nothing?
         }
 
-        public override async void OnChannelStart()
+        public override void OnChannelStart()
         {
             if (CanDealDamage)
             {
@@ -64,7 +65,7 @@ namespace Patterns.State.Abilities.Warlock
 
             try
             {
-                await SpellEffectTask(_cancellationTokenSource.Token);
+                SpellEffectTask(_cancellationTokenSource.Token).Forget();
             }
             catch (OperationCanceledException e)
             {

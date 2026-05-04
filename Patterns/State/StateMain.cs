@@ -2,6 +2,7 @@ using Patterns.Common;
 using Patterns.State.Abilities.Data;
 using Patterns.State.Characters;
 using Patterns.State.Classes.Data;
+using Patterns.State.Extensions;
 
 namespace Patterns.State
 {
@@ -13,7 +14,7 @@ namespace Patterns.State
         public void Run(object[]? args = null)
         {
             CreateActors();
-            Simulation().GetAwaiter().GetResult();
+            SimulateCombat().RunSync();
         }
 
         private void CreateActors()
@@ -23,14 +24,9 @@ namespace Patterns.State
             _trainingDummy = new CharacterBase(10000, 0, ClassType.Warlock, new GlobalCooldownManager());
         }
 
-        private async Task Simulation()
-        {
-            await SimulateCombat();
-        }
-
         private async Task SimulateCombat()
         {
-            Console.Out.WriteLine("Simulating combat!!!");
+            await Console.Out.WriteLineAsync("Simulating combat!!!");
             _player.CastSpell(AbilityDatabase.AbilityNames.Warlock.Corruption, _trainingDummy);
             _player.CastSpell(AbilityDatabase.AbilityNames.Warlock.Corruption, _trainingDummy);
             await Task.Delay(2000);
@@ -48,9 +44,8 @@ namespace Patterns.State
             await Task.Delay(1000);
             _player.TryCancelSpell();
             await Task.Delay(20000);
-            Console.Out.WriteLine("Simulation Finished!");
-            Console.ReadLine();
-            Console.Out.WriteLine($"Training dummy HP = {_trainingDummy.CurrentHealth}");
+            await Console.Out.WriteLineAsync("Simulation Finished!");
+            await Console.Out.WriteLineAsync($"Training dummy HP = {_trainingDummy.CurrentHealth}");
         }
     }
 }

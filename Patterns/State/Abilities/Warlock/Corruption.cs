@@ -1,5 +1,6 @@
 using Patterns.State.Abilities.Data;
 using Patterns.State.Characters;
+using Patterns.State.Extensions;
 
 namespace Patterns.State.Abilities.Warlock
 {
@@ -32,7 +33,7 @@ namespace Patterns.State.Abilities.Warlock
             CancelEffect();
         }
 
-        public override async void OnCast()
+        public override void OnCast()
         {
             base.OnCast();
 
@@ -60,11 +61,11 @@ namespace Patterns.State.Abilities.Warlock
             
             CancelEffect();
 
-            /*_cancellationTokenSource = new CancellationTokenSource();
+            _cancellationTokenSource = new CancellationTokenSource();
 
             try
             {
-                await SpellEffectTask(_cancellationTokenSource.Token);
+                SpellEffectTask(_cancellationTokenSource.Token).Forget();
             }
             catch (OperationCanceledException e)
             {
@@ -72,9 +73,7 @@ namespace Patterns.State.Abilities.Warlock
 
                 if (Target == null) return;
                 Target.TryRemoveEffect(EffectType.Corruption);
-            }*/
-            
-            StartEffect();
+            }
         }
 
         private async Task SpellEffectTask(CancellationToken cancellationToken)
@@ -108,33 +107,6 @@ namespace Patterns.State.Abilities.Warlock
             
             _cancellationTokenSource?.Dispose();
             _cancellationTokenSource = null;
-        }
-
-        private void StartEffect()
-        {
-            _ = RunEffectAsync();
-        }
-
-        private async Task RunEffectAsync()
-        {
-            _cancellationTokenSource = new CancellationTokenSource();
-
-            try
-            {
-                await SpellEffectTask(_cancellationTokenSource.Token);
-            }
-            catch (OperationCanceledException e)
-            {
-                _timeSpent = 0;
-
-                if (Target == null) return;
-                Target.TryRemoveEffect(EffectType.Corruption);
-            }
-            catch (Exception e)
-            {
-                Console.Out.WriteLine(e.Message);
-                throw;
-            }
         }
 
         public override void Dispose()

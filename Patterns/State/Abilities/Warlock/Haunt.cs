@@ -1,5 +1,6 @@
 using Patterns.State.Abilities.Data;
 using Patterns.State.Characters;
+using Patterns.State.Extensions;
 
 namespace Patterns.State.Abilities.Warlock
 {
@@ -13,7 +14,7 @@ namespace Patterns.State.Abilities.Warlock
         {
         }
 
-        public override async void OnCast()
+        public override void OnCast()
         {
             base.OnCast();
 
@@ -37,7 +38,7 @@ namespace Patterns.State.Abilities.Warlock
 
             try
             {
-                await SpellEffectTask(_cancellationTokenSource.Token);
+                SpellEffectTask(_cancellationTokenSource.Token).Forget();
             }
             catch (Exception e)
             {

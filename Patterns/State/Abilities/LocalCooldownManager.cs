@@ -1,3 +1,5 @@
+using Patterns.State.Extensions;
+
 namespace Patterns.State.Abilities
 {
     public class LocalCooldownManager : ICooldownManager
@@ -13,13 +15,13 @@ namespace Patterns.State.Abilities
             _delay = delay;
         }
 
-        public async void StartCooldownTimer()
+        public void StartCooldownTimer()
         {
             _cancellationTokenSource = new CancellationTokenSource();
 
             try
             {
-                await CooldownTimerAsync(_cancellationTokenSource.Token);
+                CooldownTimerAsync(_cancellationTokenSource.Token).Forget();
             }
             catch (OperationCanceledException e)
             {

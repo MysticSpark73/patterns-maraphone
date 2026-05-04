@@ -1,4 +1,5 @@
 using Patterns.State.Abilities.Data;
+using Patterns.State.Extensions;
 
 namespace Patterns.State.Abilities.States
 {
@@ -41,7 +42,7 @@ namespace Patterns.State.Abilities.States
             CancelCast();
         }
 
-        private async void StartCast()
+        private void StartCast()
         {
             _cancellationTokenSource = new CancellationTokenSource();
 
@@ -56,7 +57,7 @@ namespace Patterns.State.Abilities.States
                 _cancellationTokenSource = new CancellationTokenSource();
                 try
                 {
-                    await CastTask(_cancellationTokenSource.Token);
+                    CastTask(_cancellationTokenSource.Token).Forget();
                 }
                 catch (TaskCanceledException e)
                 {

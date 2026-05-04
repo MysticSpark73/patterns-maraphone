@@ -1,3 +1,5 @@
+using Patterns.State.Extensions;
+
 namespace Patterns.State.Characters
 {
     public class GlobalCooldownManager : ICooldownManager
@@ -8,7 +10,7 @@ namespace Patterns.State.Characters
         private bool _isOnCooldown;
         private CancellationTokenSource? _cancellationTokenSource;
 
-        public async void StartCooldownTimer()
+        public void StartCooldownTimer()
         {
             if (_isOnCooldown)
             {
@@ -22,7 +24,7 @@ namespace Patterns.State.Characters
 
                 try
                 {
-                    await CooldownTask(_cancellationTokenSource.Token);
+                    CooldownTask(_cancellationTokenSource.Token).Forget();
                 }
                 catch (OperationCanceledException e)
                 {
