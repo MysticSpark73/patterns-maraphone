@@ -2,6 +2,7 @@ using System.Numerics;
 using Patterns.Common;
 using Patterns.Flyweight.Bullets;
 using Patterns.Flyweight.Factory;
+using Patterns.State.Extensions;
 
 namespace Patterns.Flyweight
 {
@@ -25,7 +26,7 @@ namespace Patterns.Flyweight
             CreateFactory();
             CreateBulletsPool();
             ShootBullets();
-            UpdateBullets();
+            UpdateBullets().RunSync();
         }
 
         private void CreateFactory()
@@ -55,7 +56,7 @@ namespace Patterns.Flyweight
             }
         }
 
-        private async void UpdateBullets()
+        private async Task UpdateBullets()
         {
             while (_bullets.Count > 0)
             {
