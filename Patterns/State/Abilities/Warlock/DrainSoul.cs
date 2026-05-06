@@ -42,7 +42,7 @@ namespace Patterns.State.Abilities.Warlock
         {
             if (CanDealDamage)
             {
-                if (Target  == null) return;
+                if (Target == null) return;
 
                 Target.OnDie += OnTargetDied;
             }
@@ -58,19 +58,11 @@ namespace Patterns.State.Abilities.Warlock
                 Console.Out.WriteLine("DrainSoul channel timer has been reset!");
                 return;
             }
-            
-            CancelEffect();
-            
-            _cancellationTokenSource = new CancellationTokenSource();
 
-            try
-            {
-                SpellEffectTask(_cancellationTokenSource.Token).Forget();
-            }
-            catch (OperationCanceledException e)
-            {
-                _timeSpent = 0;
-            }
+            CancelEffect();
+
+            _cancellationTokenSource = new CancellationTokenSource();
+            SpellEffectTask(_cancellationTokenSource.Token).Forget();
         }
 
         public override void OnChannelFinish()
@@ -80,23 +72,31 @@ namespace Patterns.State.Abilities.Warlock
 
         private async Task SpellEffectTask(CancellationToken cancellationToken)
         {
-            while (_timeSpent <= (int) (_data.channelDuration.value.Value * 1000))
+            try
             {
-                await Task.Delay(TickSpeed, cancellationToken);
-                _timeSpent += TickSpeed;
+                while (_timeSpent <= (int) (_data.channelDuration.value.Value * 1000))
+                {
+                    await Task.Delay(TickSpeed, cancellationToken);
+                    _timeSpent += TickSpeed;
 
-                if (CanDealDamage && Target != null)
-                {
-                    Target.TakeDamage(DamagePerTick * GetDamageModifier());
-                    Console.Out.WriteLine($"{Target?.GetType()} took {DamagePerTick * GetDamageModifier()} damage from {GetType()}");
-                }
-                else
-                {
-                    Console.Out.WriteLine($"Can't deal damage to null or dead target!");
-                    CancelEffect();
-                    return;
+                    if (CanDealDamage && Target != null)
+                    {
+                        Target.TakeDamage(DamagePerTick * GetDamageModifier());
+                        Console.Out.WriteLine($"{Target?.GetType().Name ?? ""} took {DamagePerTick * GetDamageModifier()} damage from {GetType().Name}");
+                    }
+                    else
+                    {
+                        Console.Out.WriteLine($"Can't deal damage to null or dead target!");
+                        CancelEffect();
+                        return;
+                    }
                 }
             }
+            catch (OperationCanceledException e)
+            {
+                _timeSpent = 0;
+            }
+            
         }
 
         private void CancelEffect()

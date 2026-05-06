@@ -19,9 +19,15 @@ namespace Patterns.State.Abilities
         {
             _cancellationTokenSource = new CancellationTokenSource();
 
+            CooldownTimerAsync(_cancellationTokenSource.Token).Forget();
+        }
+
+        private async Task CooldownTimerAsync(CancellationToken cancellationToken)
+        {
+            _isOnCooldown = true;
             try
             {
-                CooldownTimerAsync(_cancellationTokenSource.Token).Forget();
+                await Task.Delay((int)(_delay * 1000), cancellationToken);
             }
             catch (OperationCanceledException e)
             {
@@ -31,13 +37,6 @@ namespace Patterns.State.Abilities
             {
                 _isOnCooldown = false;
             }
-        }
-
-        private async Task CooldownTimerAsync(CancellationToken cancellationToken)
-        {
-            _isOnCooldown = true;
-            await Task.Delay((int)_delay * 1000, cancellationToken);
-            _isOnCooldown = false;
         }
 
         public void Dispose()

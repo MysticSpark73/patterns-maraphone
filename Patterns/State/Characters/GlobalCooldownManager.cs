@@ -21,27 +21,25 @@ namespace Patterns.State.Characters
             else
             {
                 _cancellationTokenSource = new CancellationTokenSource();
-
-                try
-                {
-                    CooldownTask(_cancellationTokenSource.Token).Forget();
-                }
-                catch (OperationCanceledException e)
-                {
-                    Console.Out.WriteLine($"Global cooldown timer was cancelled! Error: {e.Message}");
-                }
-                finally
-                {
-                    _isOnCooldown = false;
-                }
+                CooldownTask(_cancellationTokenSource.Token).Forget();
             }
         }
 
         private async Task CooldownTask(CancellationToken cancellationToken)
         {
             _isOnCooldown = true;
-            await Task.Delay((int)(CooldownValue * 1000), cancellationToken);
-            _isOnCooldown = false;
+            try
+            {
+                await Task.Delay((int)(CooldownValue * 1000), cancellationToken);
+            }
+            catch (OperationCanceledException e)
+            {
+                Console.Out.WriteLine($"Global cooldown timer was cancelled! Error: {e.Message}");
+            }
+            finally
+            {
+                _isOnCooldown = false;
+            }
         }
 
         private void CancelCooldown()

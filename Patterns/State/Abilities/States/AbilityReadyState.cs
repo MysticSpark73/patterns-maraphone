@@ -9,7 +9,7 @@ namespace Patterns.State.Abilities.States
         {
             if (_ability.IsOnCooldown)
             {
-                Console.Out.WriteLine($"Ability {_ability.GetType()} is on cooldown and can't be cast!");
+                Console.Out.WriteLine($"Ability {_ability.GetType().Name} is on cooldown and can't be cast!");
                 return false;
             }
             

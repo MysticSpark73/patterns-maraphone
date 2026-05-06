@@ -40,32 +40,54 @@ namespace Patterns.State.Abilities.Warlock
             if (CanDealDamage)
             {
                 if (Target == null) return;
-                
+
                 Target.OnDie += OnTargetDead;
                 Target.TryApplyEffect(EffectType.Corruption);
                 Target.TakeDamage(DamageOnCast);
-                Console.Out.WriteLine($"{Target?.GetType()} took {DamageOnCast} damage from {GetType()} corruption on cast");
+                Console.Out.WriteLine(
+                    $"{Target?.GetType().Name} took {DamageOnCast} damage from {GetType().Name} corruption on cast");
             }
             else
             {
                 Console.Out.WriteLine($"Target is already dead!");
                 return;
             }
-            
+
             if (_timeSpent > 0)
             {
                 _timeSpent = 0;
                 Console.Out.WriteLine("Corruption time has been reset");
                 return;
             }
-            
+
             CancelEffect();
 
             _cancellationTokenSource = new CancellationTokenSource();
+            SpellEffectTask(_cancellationTokenSource.Token).Forget();
+        }
 
+        private async Task SpellEffectTask(CancellationToken cancellationToken)
+        {
             try
             {
-                SpellEffectTask(_cancellationTokenSource.Token).Forget();
+                while (_timeSpent <= (int) (_data.duration.value.Value * 1000))
+                {
+                    await Task.Delay(TickSpeed, cancellationToken);
+                    _timeSpent += TickSpeed;
+
+                    if (CanDealDamage && Target != null)
+                    {
+                        float damage = DamagePerTick * (Target.IsEffectActive(EffectType.Haunt) ? HauntMultiplier : 1);
+                        Target.TakeDamage(damage);
+                        Console.Out.WriteLine($"{Target?.GetType().Name} took {damage} damage from {GetType().Name}");
+                    }
+                    else
+                    {
+                        Console.Out.WriteLine($"Can't deal damage to null or dead target!");
+                        CancelEffect();
+                        return;
+                    }
+                }
             }
             catch (OperationCanceledException e)
             {
@@ -73,28 +95,6 @@ namespace Patterns.State.Abilities.Warlock
 
                 if (Target == null) return;
                 Target.TryRemoveEffect(EffectType.Corruption);
-            }
-        }
-
-        private async Task SpellEffectTask(CancellationToken cancellationToken)
-        {
-            while (_timeSpent <= (int) (_data.duration.value.Value * 1000))
-            {
-                await Task.Delay(TickSpeed, cancellationToken);
-                _timeSpent += TickSpeed;
-
-                if (CanDealDamage && Target != null)
-                {
-                    float damage = DamagePerTick * (Target.IsEffectActive(EffectType.Haunt) ? HauntMultiplier : 1);
-                    Target.TakeDamage(damage);
-                    Console.Out.WriteLine($"{Target?.GetType()} took {damage} damage from {GetType()}");
-                }
-                else
-                {
-                    Console.Out.WriteLine($"Can't deal damage to null or dead target!");
-                    CancelEffect();
-                    return;
-                }
             }
         }
 

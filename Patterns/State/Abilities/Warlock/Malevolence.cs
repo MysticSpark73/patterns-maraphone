@@ -7,7 +7,7 @@ namespace Patterns.State.Abilities.Warlock
     public class Malevolence : AbilityBase
     {
 
-        private CancellationTokenSource _cancellationTokenSource;
+        private CancellationTokenSource? _cancellationTokenSource;
         
         public Malevolence(AbilityData data, GlobalCooldownManager cooldownManager) : base(data, cooldownManager)
         {
@@ -16,27 +16,18 @@ namespace Patterns.State.Abilities.Warlock
         public override void OnCast()
         {
             base.OnCast();
-            
+
             if (Caster == null || !Caster.IsAlive)
             {
                 Console.Out.WriteLine("Can't apply effect to null or dead target!");
                 return;
             }
-            
+
             CancelEffect();
 
             _cancellationTokenSource = new CancellationTokenSource();
             Caster.OnDie += OnCasterDied;
-
-            try
-            {
-                SpellEffectTask(_cancellationTokenSource.Token).Forget();
-            }
-            catch (OperationCanceledException e)
-            {
-                OnEffectCancelled();
-            }
-
+            SpellEffectTask(_cancellationTokenSource.Token).Forget();
         }
 
         private void OnCasterDied()
@@ -56,8 +47,14 @@ namespace Patterns.State.Abilities.Warlock
         {
             Caster?.TryApplyEffect(EffectType.Malevolence);
             Console.Out.WriteLine("IDK your spell power is increased I guess");
-            await Task.Delay((int)(_data.duration.value.Value * 1000), cancellationToken);
-            OnEffectCancelled();
+            try
+            {
+                await Task.Delay((int)(_data.duration.value.Value * 1000), cancellationToken);
+            }
+            finally
+            {
+                OnEffectCancelled();
+            }
         }
 
         private void CancelEffect()

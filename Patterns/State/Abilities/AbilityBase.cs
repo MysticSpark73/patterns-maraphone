@@ -48,11 +48,14 @@ namespace Patterns.State.Abilities
         {
             if (_stateTypeToState.ContainsKey(stateType))
             {
-                var temp = _state;
+                if (_state != null)
+                {
+                    Console.Out.WriteLine($"{GetType().Name} leaving state {_state.GetType().Name}");
+                }
                 _state?.Exit();
                 _state = _stateTypeToState[stateType];
                 _state.Enter();
-                Console.Out.WriteLine($"{GetType()} ability state changed from {temp} ---> {stateType}");
+                Console.Out.WriteLine($"{GetType().Name} entering state {_state.GetType().Name}");
             }
             else
             {
@@ -72,17 +75,17 @@ namespace Patterns.State.Abilities
         {
             string casterType = _castData?.caster.ToString() ?? "Undefined";
             string targetType = _castData?.target?.ToString() ?? "Undefined";
-            Console.Out.WriteLine($"Ability {GetType()} was cast by {casterType} on {targetType}");
+            Console.Out.WriteLine($"Ability {GetType().Name} was cast by {casterType} on {targetType}");
         }
 
         public virtual void OnChannelStart()
         {
-            Console.Out.WriteLine($"Ability {GetType()} is being channeled");
+            Console.Out.WriteLine($"Ability {GetType().Name} is being channeled");
         }
 
         public virtual void OnChannelFinish()
         {
-            Console.Out.WriteLine($"Ability {GetType()} channel has been stopped");
+            Console.Out.WriteLine($"Ability {GetType().Name} channel has been stopped");
         }
 
         public virtual void StartCooldown() => _localCooldownManager.StartCooldownTimer();
@@ -91,7 +94,7 @@ namespace Patterns.State.Abilities
         {
             if (abilityCastData.target == null)
             {
-                Console.Out.WriteLine($"Can't cast {GetType()}! Spell requires target!");
+                Console.Out.WriteLine($"Can't cast {GetType().Name}! Spell requires target!");
                 return false;
             }
 

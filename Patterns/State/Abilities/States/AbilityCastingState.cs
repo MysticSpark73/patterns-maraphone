@@ -44,8 +44,6 @@ namespace Patterns.State.Abilities.States
 
         private void StartCast()
         {
-            _cancellationTokenSource = new CancellationTokenSource();
-
             _ability.OnCastStart();
 
             if (_ability.IsInstant)
@@ -55,14 +53,7 @@ namespace Patterns.State.Abilities.States
             else
             {
                 _cancellationTokenSource = new CancellationTokenSource();
-                try
-                {
-                    CastTask(_cancellationTokenSource.Token).Forget();
-                }
-                catch (TaskCanceledException e)
-                {
-                    HandleCancelledCast();
-                }
+                CastTask(_cancellationTokenSource.Token).Forget();
             }
         }
 
@@ -70,9 +61,16 @@ namespace Patterns.State.Abilities.States
         {
             if (!_ability.CastTime.IsInstant)
             {
-                await Task.Delay((int) (_ability.CastTime.value.Value * 1000), cancellationToken);
+                try
+                {
+                    await Task.Delay((int) (_ability.CastTime.value.Value * 1000), cancellationToken);
+                    HandleSuccessFullCast();
+                }
+                catch (OperationCanceledException e)
+                {
+                    HandleCancelledCast();
+                }
             }
-            HandleSuccessFullCast();
         }
 
         private void CancelCast(InterruptSource interruptSource = InterruptSource.Self)

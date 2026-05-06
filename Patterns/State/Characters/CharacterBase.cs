@@ -56,7 +56,7 @@ namespace Patterns.State.Characters
             AbilityBase? ability = _class.GetSpell(name);
             if (ability == null)
             {
-                Console.Out.WriteLine($"Spell {name} is not present on the spellist of {_class.GetType()}!");
+                Console.Out.WriteLine($"Spell {name} is not present on the spellist of {_class.GetType().Name}!");
                 return;
             }
 
@@ -75,7 +75,7 @@ namespace Patterns.State.Characters
         {
             if (_currentAbility == null)
             {
-                Console.Out.WriteLine($"Can't cancel ability on {GetType()}! There is nothing to be cancelled!");
+                Console.Out.WriteLine($"Can't cancel ability on {GetType().Name}! There is nothing to be cancelled!");
                 return false; 
             }
 
@@ -83,7 +83,7 @@ namespace Patterns.State.Characters
 
             if (cancellableAbility == null)
             {
-                Console.Out.WriteLine($"Ability {_currentAbility.GetType()} can not be cancelled!");
+                Console.Out.WriteLine($"Ability {_currentAbility.GetType().Name} can not be cancelled!");
                 return false;
             }
 
@@ -97,14 +97,14 @@ namespace Patterns.State.Characters
         {
             if (_currentAbility == null)
             {
-                Console.Out.WriteLine($"Can't cancel ability on {GetType()}! There is nothing to be cancelled!");
+                Console.Out.WriteLine($"Can't cancel ability on {GetType().Name}! There is nothing to be cancelled!");
                 return false;
             }
 
             IInterruptable? interruptableAbility = _currentAbility as IInterruptable;
             if (interruptableAbility == null)
             {
-                Console.Out.WriteLine($"Ability {_currentAbility.GetType()} can not be Interrupted!");
+                Console.Out.WriteLine($"Ability {_currentAbility.GetType().Name} can not be Interrupted!");
                 return false;
             }
             

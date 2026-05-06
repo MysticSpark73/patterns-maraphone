@@ -51,24 +51,23 @@ namespace Patterns.State.Abilities.States
                 _ability.ChangeState(StateType.ReadyState);
                 return;
             }
-            
+
             _ability.OnChannelStart();
             _cancellationTokenSource = new CancellationTokenSource();
-            
+            ChannelTask(_cancellationTokenSource.Token).Forget();
+        }
+
+        private async Task ChannelTask(CancellationToken cancellationToken)
+        {
             try
             {
-                ChannelTask(_cancellationTokenSource.Token).Forget();
+                await Task.Delay((int)(_ability.ChannelDuration.value.Value * 1000), cancellationToken);
+                HandleChannelFinished();
             }
             catch (OperationCanceledException e)
             {
                 HandleChannelCancelled();
             }
-        }
-
-        private async Task ChannelTask(CancellationToken cancellationToken)
-        {
-            await Task.Delay((int)(_ability.ChannelDuration.value.Value * 1000), cancellationToken);
-            HandleChannelFinished();
         }
 
         private void CancelChannel(InterruptSource interruptSource = InterruptSource.Self)

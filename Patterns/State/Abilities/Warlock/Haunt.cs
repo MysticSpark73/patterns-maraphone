@@ -8,7 +8,7 @@ namespace Patterns.State.Abilities.Warlock
     {
         private const int DamageOnCast = 720;
 
-        private CancellationTokenSource _cancellationTokenSource;
+        private CancellationTokenSource? _cancellationTokenSource;
         
         public Haunt(AbilityData data, GlobalCooldownManager cooldownManager) : base(data, cooldownManager)
         {
@@ -25,7 +25,7 @@ namespace Patterns.State.Abilities.Warlock
                 Target.OnDie += OnTargetDied;
                 Target.TryApplyEffect(EffectType.Haunt);
                 Target.TakeDamage(DamageOnCast);
-                Console.Out.WriteLine($"{Target.GetType()} took {DamageOnCast} from {GetType()}");
+                Console.Out.WriteLine($"{Target.GetType().Name} took {DamageOnCast} from {GetType().Name}");
             }
             else
             {
@@ -35,15 +35,7 @@ namespace Patterns.State.Abilities.Warlock
 
             CancelEffect();
             _cancellationTokenSource = new CancellationTokenSource();
-
-            try
-            {
-                SpellEffectTask(_cancellationTokenSource.Token).Forget();
-            }
-            catch (Exception e)
-            {
-                OnEffectCancelled();
-            }
+            SpellEffectTask(_cancellationTokenSource.Token).Forget();
         }
 
         public void Cancel()
@@ -58,9 +50,18 @@ namespace Patterns.State.Abilities.Warlock
 
         private async Task SpellEffectTask(CancellationToken cancellationToken)
         {
-            await Task.Delay((int)(_data.duration.value.Value * 1000), cancellationToken);
-            
-            OnEffectCancelled();
+            try
+            {
+                await Task.Delay((int)(_data.duration.value.Value * 1000), cancellationToken);
+            }
+            catch (OperationCanceledException e)
+            {
+                Console.Out.WriteLine("Haunt effect was dismissed!");
+            }
+            finally
+            {
+                OnEffectCancelled();
+            }
         }
 
         private void CancelEffect()
