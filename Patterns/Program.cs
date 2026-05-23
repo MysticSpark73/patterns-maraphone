@@ -18,6 +18,7 @@ using Patterns.Prototype;
 using Patterns.Proxy;
 using Patterns.Singleton;
 using Patterns.State;
+using Patterns.Strategy;
 
 namespace Patterns
 {
@@ -43,7 +44,8 @@ namespace Patterns
             // Behavioral.RunMemento();
             // Behavioral.RunObserver();
             // Behavioral.RunEventBus();
-            Behavioral.RunState();
+            // Behavioral.RunState();
+            Behavioral.RunStrategy();
         }
 
         private static class Creational
@@ -172,6 +174,12 @@ namespace Patterns
             {
                 StateMain state = new StateMain();
                 state.Run();
+            }
+
+            public static void RunStrategy()
+            {
+                StrategyMain strategy = new StrategyMain();
+                strategy.Run();
             }
         }
     }
