@@ -32,7 +32,7 @@ namespace Patterns
             // Creational.RunBuilder();
             // Creational.RunPrototype();
             // Creational.RunSingleton();
-            // Creational.RunAdapter();
+            // Structural.RunAdapter();
             // Structural.RunBridge();
             // Structural.RunComposite();
             // Structural.RunDecorator();
@@ -84,15 +84,16 @@ namespace Patterns
                 singleton.Run();
             }
 
+        }
+
+        private static class Structural
+        {
             public static void RunAdapter()
             {
                 AdapterMain adapter = new AdapterMain();
                 adapter.Run();
             }
-        }
-
-        private static class Structural
-        {
+            
             public static void RunBridge()
             {
                 BridgeMain bridge = new BridgeMain();
