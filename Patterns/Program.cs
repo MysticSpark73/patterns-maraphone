@@ -20,6 +20,7 @@ using Patterns.Singleton;
 using Patterns.State;
 using Patterns.Strategy;
 using Patterns.TemplateMethod;
+using Patterns.Visitor;
 
 namespace Patterns
 {
@@ -47,7 +48,8 @@ namespace Patterns
             // Behavioral.RunEventBus();
             // Behavioral.RunState();
             // Behavioral.RunStrategy();
-            Behavioral.RunTemplateMethod();
+            // Behavioral.RunTemplateMethod();
+            Behavioral.RunVisitor();
         }
 
         private static class Creational
@@ -188,6 +190,12 @@ namespace Patterns
             {
                 TemplateMethodMain templateMethod = new TemplateMethodMain();
                 templateMethod.Run();
+            }
+
+            public static void RunVisitor()
+            {
+                VisitorMain visitor = new VisitorMain();
+                visitor.Run();
             }
         }
     }
