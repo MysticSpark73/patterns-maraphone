@@ -40,11 +40,6 @@ namespace Patterns.Visitor
 
         private void CastSpells()
         {
-            List<IVisitable> everyone = new List<IVisitable>()
-            {
-                _wizard, _gladiator, _zombie, _skeleton, _steelSentinel, _fireElemental
-            };
-
             _spellBook.Cast(SpellType.ShieldSlam, _gladiator, new List<IVisitable>()
             {
                 _wizard, _zombie, _skeleton, _steelSentinel, _fireElemental
