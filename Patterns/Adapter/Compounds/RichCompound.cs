@@ -1,6 +1,6 @@
-using System;
 using Patterns.Adapter.DataBank;
 using Patterns.Adapter.Enums;
+using Patterns.Adapter.Extensions;
 
 namespace Patterns.Adapter.Compounds
 {
@@ -14,10 +14,10 @@ namespace Patterns.Adapter.Compounds
             _chemical = chemical;
             _dataBank = new ChemicalDataBank();
 
-            _meltingPoint = _dataBank.GetCriticalPoint(_chemical.ToString(), CriticalPoint.MeltingPoint.ToString());
-            _boilingPoint = _dataBank.GetCriticalPoint(_chemical.ToString(), CriticalPoint.BoilingPoint.ToString());
-            _molecularWeight = _dataBank.GetMolecularWeight(_chemical.ToString());
-            _molecularFormula = _dataBank.GetMolecularFormula(_chemical.ToString());
+            _meltingPoint = _dataBank.GetCriticalPoint(_chemical.PrintToString(), CriticalPoint.MeltingPoint.PrintToString());
+            _boilingPoint = _dataBank.GetCriticalPoint(_chemical.PrintToString(), CriticalPoint.BoilingPoint.PrintToString());
+            _molecularWeight = _dataBank.GetMolecularWeight(_chemical.PrintToString());
+            _molecularFormula = _dataBank.GetMolecularFormula(_chemical.PrintToString());
         }
 
         public override void Display()

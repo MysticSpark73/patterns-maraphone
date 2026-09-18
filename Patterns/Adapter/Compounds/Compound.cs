@@ -1,4 +1,3 @@
-using System;
 
 namespace Patterns.Adapter.Compounds
 {
