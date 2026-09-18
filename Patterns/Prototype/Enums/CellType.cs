@@ -18,7 +18,7 @@ namespace Patterns.Prototype.Enums
 
         // Blood
         RedBloodCell = 6,
-        WhiteBloodCell = 2,
+        WhiteBloodCell = 7,
 
         // Immune
         Macrophage = 8,
