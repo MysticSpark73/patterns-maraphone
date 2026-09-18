@@ -13,9 +13,9 @@ namespace Patterns.ChainOfResponsibility
             _gameInitializationHandler = gameInitializationHandler;
         }
 
-        public void Initialize(SaveData? saveData)
+        public void Initialize()
         {
-            if (!_gameInitializationHandler.Handle(saveData))
+            if (!_gameInitializationHandler.Handle(null))
             {
                 Console.Out.WriteLine("Initialization Failed!!!");
                 return;

@@ -12,7 +12,7 @@ namespace Patterns.ChainOfResponsibility
         {
             BuildGameInitializationHandler();
             CreateGameInitializationManager(_gameInitializationHandler);
-            _gameInitializationManager.Initialize(null);
+            _gameInitializationManager.Initialize();
         }
 
         private void CreateGameInitializationManager(IHandler handler) => 
