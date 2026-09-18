@@ -1,4 +1,3 @@
-using System;
 using Patterns.ChainOfResponsibility.Data;
 
 namespace Patterns.ChainOfResponsibility.Handlers

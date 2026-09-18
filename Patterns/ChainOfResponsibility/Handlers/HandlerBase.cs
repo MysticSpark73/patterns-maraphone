@@ -7,7 +7,7 @@ namespace Patterns.ChainOfResponsibility.Handlers
     {
         private IHandler? _handler;
 
-        public virtual bool Handle(SaveData? saveData)
+        public virtual bool Handle(SaveData saveData)
         {
             if (_handler != null)
             {

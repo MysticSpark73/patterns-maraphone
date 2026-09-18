@@ -7,7 +7,7 @@ namespace Patterns.ChainOfResponsibility.Handlers
     public class LocalDataHandler : HandlerBase
     {
         private SaveData _saveData;
-        public override bool Handle(SaveData? saveData)
+        public override bool Handle(SaveData saveData)
         {
             if (!TryLoadSavedData()) return false;
             if (!TryLoadResources()) return false;

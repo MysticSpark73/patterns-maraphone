@@ -1,11 +1,10 @@
-using System;
 using Patterns.ChainOfResponsibility.Data;
 
 namespace Patterns.ChainOfResponsibility.Handlers
 {
     public class LoadPlayerHandler : HandlerBase
     {
-        public override bool Handle(SaveData? saveData)
+        public override bool Handle(SaveData saveData)
         {
             if (!TryLoadPlayer(saveData)) return false;
             if (!TryApplySavedSkin(saveData)) return false;
