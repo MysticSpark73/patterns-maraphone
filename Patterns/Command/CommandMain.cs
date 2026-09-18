@@ -98,6 +98,16 @@ namespace Patterns.Command
             {
                 houseCommandItem.command.Execute();
             }
+
+            foreach (var houseCommandItem in _houseCommandsMap.Where(i => i.device is SmartCurtains))
+            {
+                houseCommandItem.command.Execute();
+            }
+
+            foreach (var houseCommandItem in _houseCommandsMap.Where(i => i.device is SmartOven))
+            {
+                houseCommandItem.command.Execute();
+            }
         }
     }
 }

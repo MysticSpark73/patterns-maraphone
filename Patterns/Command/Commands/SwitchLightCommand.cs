@@ -20,7 +20,7 @@ namespace Patterns.Command.Commands
             base.Execute();
             _cachedState = _light.IsLightOn;
             _light.SwitchLight(_isLightOn);
-            Console.Out.WriteLine($"[SwitchLightCommand] Switching light {0} on a {1}", _light.IsLightOn ? "on": "off", _light.GetType());
+            Console.Out.WriteLine("[SwitchLightCommand] Switching light {0} on a {1}", _light.IsLightOn ? "on": "off", _light.GetType());
         }
 
         public override void Undo()

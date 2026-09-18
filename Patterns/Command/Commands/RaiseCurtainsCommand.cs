@@ -42,7 +42,7 @@ namespace Patterns.Command.Commands
             {
                 _curtains.RaiseCurtains();
             }
-            Console.Out.WriteLine($"The curtains are {0}", _isClosed ? "closed" : "open");
+            Console.Out.WriteLine("The curtains are {0}", _isClosed ? "closed" : "open");
         }
     }
 }
