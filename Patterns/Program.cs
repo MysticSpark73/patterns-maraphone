@@ -28,6 +28,7 @@ namespace Patterns
     {
         static void Main(string[] args)
         {
+            // Creational.RunFactory();
             // Creational.RunAbstractFactory(new object[] { AbstractFactoryMain.FurnitureType.Modern });
             // Creational.RunBuilder();
             // Creational.RunPrototype();
